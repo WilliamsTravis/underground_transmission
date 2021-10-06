@@ -131,12 +131,15 @@ class Highways:
         return state
 
 
-if __name__ == "__main__":
+def main():
+    """Run script for north-south and east-west interstates on eagle."""
     for route in HWYS.keys():
         highways = HWYS[route]
         dst = DSTS[route]
         if not os.path.exists(dst):
-            # self = Highways(route=route, highways=highways)
-            # break
             extractor = Highways(route=route, highways=highways)
             extractor.extract_all(dst)
+
+
+if __name__ == "__main__":
+    main()
