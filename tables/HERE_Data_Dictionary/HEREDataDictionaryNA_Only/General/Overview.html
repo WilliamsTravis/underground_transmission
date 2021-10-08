@@ -1,0 +1,230 @@
+﻿<html>
+  <head>
+    <link rel="stylesheet" href="../css/DataDictionary.css" type="text/css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  
+    <script src="../js/sorttable.js"></script>
+    
+    <title>
+    Data Dictionary Overview  
+   </title>
+  </head>
+
+  <body>
+   <table>
+    <tr>
+     <td rowspan="2"><img src="../images/orglogo.jpg" border="1" height="120"/> </td>    
+      <td>
+      <table>
+       <tr>
+        <td><h1>2020 Q3 File Geodatabase Plus Data Dictionary</h1></td>
+      </tr>
+     </table>
+     </td>F
+    </tr>
+   </table>
+
+  <table>
+   <tr><td colspan="7" align="center"><h2>Overview</h2></td></tr>
+   <tr>
+    <td width="50"></td> 
+    <td width="80"><a href="../general/DataDictionaryReadme.html">Read Me</a></td>  
+    <td width="90"><a href="../general/Overview.html">Overview</a></td>      
+    <td width="115"><a href="../general/Entities.Table.html">Layers/Tables</a></td>     
+    <td width="170"><a href="../general/FeatureFinder.html">Facility/Feature Finder</a></td> 
+    <td width="110"><a href="../general/Relationships.html">Relationships</a></td> 
+    <td width="100"><a href="../general/MapTypes.html">Map Types</a></td> 
+    <td width="110"><a href="../general/Admin_Geography_Levels.html">Admin Levels</a></td>
+    <td width="140"><a href="../general/DataDictionaryReference.html">Dictionary Reference</a></td>      
+   </tr>
+</table>
+<br />
+
+This data dictionary overview page describes the most essential and important aspects of HERE's File Geodatabase Plus databases and includes the information found in the FGDC metadata delivered with all File Geodatabase Plus layers and related tables.   
+
+<h3>Geodatabases</h3>
+HERE File Geodatabase Plus is delivered as a set of three ESRI File Geodatabases, organized using HERE regions and including:
+<ul>
+<li>North America: Covering the United States, Canada, Mexico, the Northern Caribbean, American Samoa, Guam, and the Northern Mariana Islands</li>
+
+</ul>
+
+<h3>Release</h3>
+This version of HERE File Geodatabase Plus is derived from HERE FGDB version S201R2.
+
+<h3>Data Categories</h3>
+HERE File Geodatabase Plus geospatial layers and related tables are organized into the following categories:
+<ul>
+<li>Geocoding Tables</li>
+<li>Mapping Layers</li>
+<li>Metadata</li>
+<li>Point of Interest (POI)</li>
+<li>Postal Code Centroids and Polygons</li>
+<li>Premium Content Tagging Tables</li>
+<li>Routing Application Layers and Tables</li>
+<li>Routing Tables</li>
+<li>Various Content</li>
+</ul>
+
+<h3>File Geodatabase Plus Additional Data</h3>
+In addition to the base layers and tables found in HERE's standard File Geodatabase, the File Geodatabase Plus product includes the following added datasets and components:
+<ul>
+<li>Enhanced Geocoding Tables and Locators</li>
+<li>Network Routing Application Layers and Tables</li>
+<li>Postal Code Centroids and Polygons for the US, Canada, and Mexico</li>
+<li>Enhanced ArcMap .mxd Presentation Files</li>
+<li>ESRI File Geodatabase Domains</li>
+<li>ESRI File Geodatabase Relationships</li>
+<li>ESRI File Geodatabase Subtypes</li>
+<li>A Built-Up-Area polygon layer from a separate HERE product</li>
+<li>A States polygon layer derived from the MapAdminArea layer</li>
+<li>XML FGDC Metadata stored in the file geodatabases</li>
+<li>An HTML based Data Dictionary</li>
+<li>A ReadMe.txt File Describing File Geodatabase Plus Components and Use</li>
+</ul>
+
+<h3>Documentation</h3>
+HERE's File Geodatabase is fully described in the File Geodatabase Reference Manaual, updated quarterly. 
+<br><br>
+Postal data products are described in the following documents:
+<br><br>
+<a href="../documentation/Postal/Postal Code Boundaries Canada Product Guide v2.0.pdf"><b>Postal Code Boundaries Canada Product Guide v2.0.pdf</b></a>
+<br>
+<a href="../documentation/Postal/Postal Code Boundaries Mexico Product Guide v1.7.pdf"><b>Postal Code Boundaries Mexico Product Guide v1.7.pdf</b></a>
+<br>
+<a href="../documentation/Postal/Postal Code Boundaries USA Product Guide v4.9.pdf"><b>Postal Code Boundaries USA Product Guide v4.9.pdf</b></a>
+<br>
+<a href="../documentation/Postal/Postal Code Points Canada Product Guide v1.9.pdf"><b>Postal Code Points Canada Product Guide v1.9.pdf</b></a>
+<br>
+<a href="../documentation/Postal/Postal Code Points USA Product Guide v2.8.pdf"><b>Postal Code Points USA Product Guide v2.8.pdf</b></a>
+
+<h3>The File Geodatabase Format</h3>
+
+The read-only File Geodatabase format is highly indexed and optimized for the fastest possible access and display of geometric and attribute information, providing a versatile data platform for geocoding, routing, and rapid display of large volume geospatial datasets. 
+
+<h3>Update Frequency</h3> 
+
+All HERE File Geodatabase Plus data and metadata is updated and released several times per year. Note that the titles for the pages in this data dictionary use the year and quarter of the actual HERE data release, and not HERE's File Geodatabase release names and versions.
+
+<h3>Geographic Coverage</h3>
+
+HERE File Geodatabase Plus Streets, POI, and Base Map layers cover all of North America, the Caribbean, American Samoa, Guam, and the Northern Mariana Islands.
+
+<h3>Data Presentation Files</h3>
+
+File Geodatabase Plus databases are delivered with ArcMap-ready .mxd presentation files configured with a full set of layer display settings to help customers get started using ArcGIS with File Geodatabase Plus data. These presentation settings include symbology, classification, and min/max scale values for most layers.  
+
+<h3>Applications</h3> 
+
+HERE File Geodatabase Plus data works with a number of ESRI applications including: 
+<ul>
+<li>ArcGIS 10.3 or greater</li>
+<li>Network Analyst</li>
+<li>ESRI Geocoding Tools</li>
+</ul>
+
+For specific version details of hardware, software, and application requirements, consult the Release Notes documentation delivered with each release.  
+
+<h3>Geographic Feature Types</h3>
+<ul>
+<li><b>POIs and Basemap Features:</b> HERE data uses 2 primary numerically coded lists and associated names for identifying POIs and base map features. 
+    All POI layers have a CAT_ID attribute which uses a 4 digit code for identifying the POI facility type. 
+    All other base map layers have a FEATURE_TYPE attribute which uses a 6 or 7 digit code to identify the feature type.  
+The Feature Finder page provides an alphabetical listing of all HERE File Geodatabase Plus CAT_ID and FEATURE_TYPE values and their associated high-level names, as well as POI subtype codes stored in the POIAttribute table.</li> 
+
+<li><b>Linear Navigation Network:</b> In the Link and Streets layers' feature types and subtypes are distinguished through the use of very specific attributes, e.g., BRIDGE='Y', TUNNEL='Y', etc.</li> 
+</ul>
+
+<h3>Nodes and Street Network Connectivity</h3>
+
+Node identifier attributes for each end point of a street segment polyline are used to provide a connected network supporting navigation and routing. 
+      Each street segment has both a reference and a non-reference node. 
+      The reference node is the node with the lower latitude. 
+      If the latitudes of both end nodes are identical and their longitudes differ, the reference node is determined by the end node with the lower longitude. 
+      If the latitudes and longitudes of both end nodes are identical but their z-levels are different, 
+      the reference node is determined by the end node with the lower z-level. 
+      Direction and right/left sides for a street segment are determined using the reference node as the starting point and the non-reference node as the end point. 
+
+<h3>HERE Map Types</h3>
+
+HERE provides maps at three levels of coverage and accuracy. 
+<ul>
+<li><b>HERE Map:</b> HERE Map content represent's HERE's flagship product and adheres to the highest accuracy and most complete geospatial coverage. </li> 
+
+<li><b> Intermediate Map:</b>Intermediate maps are based on third-party data deemed by HERE to be the highest quality available, Intermediate Maps do not adhere to the same specifications or required verification as the company’s flagship product, HERE Map Content. Inclusion and accuracy of geometry, attributes, and features is per the third-party source only.</li>
+
+<li><b>Entry Map:</b> The Entry Map product is a limited functionality database that supports use cases such as Map Display, Location Visualization and Geocoding. Entry Maps can be used separately to meet above stated use cases or to supplement existing HERE Map Content to create a regional or global digital map database footprint product.
+</li>  
+</ul>
+
+The Map Type page lists the HERE map type for each country included in the File Geodatabase Plus product.
+
+<h3>Spatial Accuracy</h3>
+
+The spatial accuracy for HERE Map Type data delivered in File Geodatabase Plus data is determined by layer type:
+<ul>
+<li><b>Navigation:</b>Link and Streets layers road segments are +/- 5 metres for absolute position and +/- 1 metre for relative position. Note: This accuracy does not apply to generalized File Geodatabase Plus layers, identified with numbered layer name suffixes, e.g., MapHighways_2.</li> 
+
+<li><b>POI:</b> The position of POI data is determined through a geocoding process, using linear interpolation along a street segment. Positions are therefore relatively accurate along the segment, but may not necessarily fall on the exact physical location of the POI.</li>
+
+<li><b>Base Map:</b> Cartographic and administrative features may be generalized, using existing road segment features for their boundaries. Building/Landmark features which require greater detail, do not share geometry with road segment features.</li>  
+</ul>
+
+<h3>Permanent Identifiers</h3>
+
+All individual linear road segments included in the Link and Streets layer have a permanent and unique identifier found in the Link_ID attribute. 
+      All POI layers have a permanent and unique identifier found in the POI_ID attribute. 
+      Most polygon layers have permanent and unique identifiers found in the POLYGON_ID attribute. These HERE ID values are consistent across different releases of HERE data. These ID values are never reused. If a feature is changed, split, or removed, new ID values are assigned and old ones retired. Additionally, postal point and polygon layers have postal code textual unique identifiers.   
+
+<h3>Relationships</h3>
+
+There are both topological and logical relationships among HERE geospatial features, tabular data records, and external files. For example:
+<ul>
+<li>
+All POI features have a LINK_ID attribute which provides a unique reference to the associated road segment in the Streets layer.
+</li>
+<li>
+Each street segment has a number of right and left side attributes identifying adjacent administrative area polygons.  
+</li>
+    <li>
+Many other non-spatial tables have LINK ID attributes providing references to associated road segments in the Link and Streets layers.
+    </li>
+</ul>    
+
+The Relationships Data Dictionary page lists the subset of all inter-entity relationships modeled using ESRI File Geodatabase Relationships. HERE's File Geodatabase Reference Manual provides comprehensive entity-relationship diagrams for each main data category. HERE also provides a dedicated File Geodatabase ERD PDF document, which can be reviewed by clicking <a href="../documentation/File Geodatabase ERD Q3 2020.pdf"><b>here</b></a>. 
+  
+</br>
+<h3>Spatial Reference System</h3> 
+
+All HERE File Geodatabase Plus data is represented using WGS 84 LAT/LON decimal degree values. 
+
+<h3>Access, Use and Distribution Rights</h3>
+
+This data can only be accessed, used, and distributed to HERE customers only, as detailed specifically in HERE licensing terms and agreements. 
+
+<h3>FGDC Metadata</h3> 
+
+All HERE File Geodatabase Plus layers and related tables are fully described with comprehensive FGDC metadata. This metadata is stored inside the File Geodatabase for each layer and table, and accessible from ArcCatalog. To view FGDC metadata in ArcCatalog, choose Customize->ArcCatalog Options->Metadata Tab and choose FGDC CSDGM Metadata as the Metadata Style setting.</li>
+
+<h3>Contact Information</h3>
+
+Address:<br /><br />
+HERE Technical Customer Support<br />  
+425 W Randolph Street<br />
+Chicago, IL, 60606<br />
+<br />
+Email: <a href="mailto:tcs@here.com">tcs@here.com</a><br />
+<br />
+Telephone: 312-894-7000</br>
+
+<h3>About HERE</h3>
+
+HERE is the leading global provider of maps, traffic and location data (digital location content) enabling navigation, location-based services and mobile advertising around the world. HERE supplies comprehensive digital location content to power automotive navigation systems, portable and wireless devices, Internet-based mapping applications and government and business solutions. By revolutionizing the way people think about and interact with maps, we foresee a world in which everyone finds their way to people, places and opportunities more easily and safely than before.
+<br /><br />
+For additional information visit: 
+<a href="https://company.here.com/here/">https://company.here.com/here/</a>
+<br />
+
+<br/>
+  </body>
+</html>

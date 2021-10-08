@@ -1,0 +1,314 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="../css/DataDictionary.css" type="text/css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  
+    <script src="../js/sorttable.js"></script>
+    
+    <title>
+    SA.CityPOI_Grenada Attributes Html  
+   </title>
+  </head>
+
+  <body>
+   <table>
+    <tr>
+     <td rowspan="2"><img src="../images/orglogo.jpg" border="1" height="120"/> </td>     
+      <td>
+      <table>
+       <tr>
+        <td><h1>2020 Q3 File Geodatabase Plus Data Dictionary</h1></td>
+      </tr>
+     </table>
+     </td>
+    </tr>
+   </table>
+
+  <table>
+   <tr><td colspan="7" align="center"><h2>SA.CityPOI_Grenada Attributes </h2></td></tr>
+   <tr>
+    <td width="50"></td> 
+    <td width="80"><a href="../general/DataDictionaryReadme.html">Read Me</a></td>  
+    <td width="90"><a href="../general/Overview.html">Overview</a></td>      
+    <td width="115"><a href="../general/Entities.Table.html">Layers/Tables</a></td>     
+    <td width="170"><a href="../general/FeatureFinder.html">Facility/Feature Finder</a></td> 
+    <td width="110"><a href="../general/Relationships.html">Relationships</a></td> 
+    <td width="100"><a href="../general/MapTypes.html">Map Types</a></td> 
+    <td width="110"><a href="../general/Admin_Geography_Levels.html">Admin Levels</a></td>
+    <td width="140"><a href="../general/DataDictionaryReference.html">Dictionary Reference</a></td>      
+   </tr>
+</table>
+<br />
+Click on Lookup Table column links to see domain values for an attribute. Click on column headings to sort.
+<br /><br />
+    <table class="sortable" border="1">
+     <thead>
+      <tr>
+        <th width="70" align="center"><u>No.</u></th>
+        <th><u>Name</u></th>
+        <th width="250"><u>Full Name</u></th>
+        <th width="400"><u>Description</u></th>
+        <th width="175"><u>Data Type</u></th>
+        <th width="175"><u>Max Chars</u></th>
+        <th><u>Lookup Table</u></th>
+      </tr>
+     </thead>  
+      <tr>
+        <td align="center">1</td>
+        <td align="center">OBJECTID</td>
+        <td>Object ID</td>
+        <td width="400">ESRI unique ID.</td>
+        <td align="center">OID</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">2</td>
+        <td align="center">SHAPE</td>
+        <td>Shape</td>
+        <td width="400">ESRI geometry object.</td>
+        <td align="center">Geometry</td>
+        <td align="right">0</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">3</td>
+        <td align="center">POI_ID</td>
+        <td>POI ID</td>
+        <td width="400">Unique ID for the POI.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">4</td>
+        <td align="center">CAT_ID</td>
+        <td>Category ID</td>
+        <td width="400">The Category ID defines the type of POI.</td>
+        <td align="center">String</td>
+        <td align="right">4</td>
+        <td align="center"><a href='../AttributeDomains/SA.CityPOI_Grenada.CAT_ID.html'>CityPOI_Grenada.CAT_ID</a></td>
+      </tr>
+      <tr>
+        <td align="center">5</td>
+        <td align="center">ISO_COUNTRY_CODE</td>
+        <td>ISO Country Code</td>
+        <td width="400">A three-letter country code as defined by the International Organization for Standardization. The ISO Country Code indicates in which country the feature is located. Different layers describe different features. ISO Country Code attribution is applied to Navigable Links, Administrative Hierarchies, and POIs in various layers.</td>
+        <td align="center">String</td>
+        <td align="right">3</td>
+        <td align="center"><a href='../AttributeDomains/SA.CityPOI_Grenada.ISO_COUNTRY_CODE.html'>CityPOI_Grenada.ISO_COUNTRY_CODE</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">6</td>
+        <td align="center">LANGUAGE_CODE</td>
+        <td>Language Code</td>
+        <td width="400">The language associated with the feature name. The Language Code, in conjunction with Prefix, Feature Name, Street Type, and Suffix, can be used in destination selection, route guidance, and map display.</td>
+        <td align="center">String</td>
+        <td align="right">3</td>
+        <td align="center"><a href='../AttributeDomains/SA.CityPOI_Grenada.LANGUAGE_CODE.html'>CityPOI_Grenada.LANGUAGE_CODE</a></td>
+      </tr>
+      <tr>
+        <td align="center">7</td>
+        <td align="center">POI_NAME</td>
+        <td>Poi Name</td>
+        <td width="400">The POI Name is the Preferred, Official Name of the POI. POI Names can be used for destination selection and map display for languages supported by HERE.</td>
+        <td align="center">String</td>
+        <td align="right">200</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">8</td>
+        <td align="center">NAMED_PLACE_ID</td>
+        <td>Named Place ID</td>
+        <td width="400">The Named Place ID is the ID of the Administrative Area or Zone associated with the City POI.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">9</td>
+        <td align="center">NAMED_PLACE_TYPE</td>
+        <td>Named Place Type</td>
+        <td width="400">The Named Place Type indicates what ID the Named Place ID refers to.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/SA.CityPOI_Grenada.NAMED_PLACE_TYPE.html'>CityPOI_Grenada.NAMED_PLACE_TYPE</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">10</td>
+        <td align="center">VANITY_CITY_ID</td>
+        <td>Vanity City ID</td>
+        <td width="400">The Vanity City ID is the Admin Place ID representing the Vanity City of the POI. Key into the Admin table.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">11</td>
+        <td align="center">DISPLAY_ID</td>
+        <td>Display ID</td>
+        <td width="400">The Display ID is a value which can be used for map display to render POIs in a logical manner.</td>
+        <td align="center">SmallInteger</td>
+        <td align="right">2</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">12</td>
+        <td align="center">STREET_ADDRESS_ID</td>
+        <td>Street Address ID</td>
+        <td width="400">Unique identifier for a named, addressed navigable link.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">13</td>
+        <td align="center">LINK_ID</td>
+        <td>Link ID</td>
+        <td width="400">Unique identifier for the Link to which the Street Address relates. Link ID is used to identify each link in the database.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">14</td>
+        <td align="center">SIDE</td>
+        <td>Side</td>
+        <td width="400">The Side of the link where the POI is located.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/SA.CityPOI_Grenada.SIDE.html'>CityPOI_Grenada.SIDE</a></td>
+      </tr>
+      <tr>
+        <td align="center">15</td>
+        <td align="center">POPULATION</td>
+        <td>Population</td>
+        <td width="400">The Population of a city represented by a Named Place POI.</td>
+        <td align="center">Double</td>
+        <td align="right">8</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">16</td>
+        <td align="center">ADMIN_PLACE_ID</td>
+        <td>Admin Place ID</td>
+        <td width="400">The Admin Place ID is a unique identifier of the lowest administrative level in the hierarchy.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">17</td>
+        <td align="center">POSTAL_CODE</td>
+        <td>Postal Code</td>
+        <td width="400">Provides the Postal Code area in which the POI is located.While this feature can be used for destination selection this is usually not recommended, except in the case of refined address resolution. For example, when the same address exists twice within a city, a postal code selection may narrow down which address is preferred.</td>
+        <td align="center">String</td>
+        <td align="right">15</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">18</td>
+        <td align="center">CAPITAL_COUNTRY</td>
+        <td>Capital Country</td>
+        <td width="400">Capital Country indicates if a City POI is the capital of the country.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">19</td>
+        <td align="center">CAPITAL_ORDER1</td>
+        <td>Capital Order 1</td>
+        <td width="400">Captial Order1 indicates if a City POI is the capital of the Order1 area.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">20</td>
+        <td align="center">CAPITAL_ORDER2</td>
+        <td>Capital Order 2</td>
+        <td width="400">Captial Order2 indicates if a City POI is the capital of the Order2 area.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">21</td>
+        <td align="center">CAPITAL_ORDER8</td>
+        <td>Capital Orde r8</td>
+        <td width="400">Captial Order8 indicates if a City POI is the capital of the Order8 area.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">22</td>
+        <td align="center">CLAIMED_BY</td>
+        <td>Claimed By</td>
+        <td width="400">Claimed By indicates which country claims a Named Place POI in a disputed area. It is only coded for areas that are under dispute.</td>
+        <td align="center">String</td>
+        <td align="right">3</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">23</td>
+        <td align="center">CONTROLLED_BY</td>
+        <td>Controlled By</td>
+        <td width="400">The Controlled By attribute is used to indicate which country is in control of the area in which the Named Place POI is located. It is only coded in areas that are under dispute.</td>
+        <td align="center">String</td>
+        <td align="right">3</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">24</td>
+        <td align="center">LOCATION_SCORE</td>
+        <td>Location Score</td>
+        <td width="400">Location Score provides a percentage value indicating the confidence of location accuracy. The Location Score ranges in value from 0 - 100.</td>
+        <td align="center">SmallInteger</td>
+        <td align="right">2</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">25</td>
+        <td align="center">PLACE_SCORE</td>
+        <td>Place Score</td>
+        <td width="400">Place Score provides a percentage value indicating the completeness of POI attribution. The Place Score ranges in value from 0 - 100.</td>
+        <td align="center">SmallInteger</td>
+        <td align="right">2</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">26</td>
+        <td align="center">CALCULATED_LEVEL</td>
+        <td>Calculated Level</td>
+        <td width="400">Calculated Level indicates the overall level of completion and accuracy of a POI. The Calculated Level ranges from 1-4.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">27</td>
+        <td align="center">DISPLAY_LAT</td>
+        <td>Display Latitude</td>
+        <td width="400">The Display Latitude is the latitude of the display position of the POI.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">28</td>
+        <td align="center">DISPLAY_LON</td>
+        <td>Display Longitude</td>
+        <td width="400">The Display Longitude is the longitude of the display position of the POI.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+
+    </table>
+
+<br/>
+  </body>
+</html>
+

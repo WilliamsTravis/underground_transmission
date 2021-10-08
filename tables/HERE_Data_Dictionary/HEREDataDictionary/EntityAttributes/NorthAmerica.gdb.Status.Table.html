@@ -1,0 +1,161 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="../css/DataDictionary.css" type="text/css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  
+    <script src="../js/sorttable.js"></script>
+    
+    <title>
+    NA.Status Attributes Html  
+   </title>
+  </head>
+
+  <body>
+   <table>
+    <tr>
+     <td rowspan="2"><img src="../images/orglogo.jpg" border="1" height="120"/> </td>     
+      <td>
+      <table>
+       <tr>
+        <td><h1>2020 Q3 File Geodatabase Plus Data Dictionary</h1></td>
+      </tr>
+     </table>
+     </td>
+    </tr>
+   </table>
+
+  <table>
+   <tr><td colspan="7" align="center"><h2>NA.Status Attributes </h2></td></tr>
+   <tr>
+    <td width="50"></td> 
+    <td width="80"><a href="../general/DataDictionaryReadme.html">Read Me</a></td>  
+    <td width="90"><a href="../general/Overview.html">Overview</a></td>      
+    <td width="115"><a href="../general/Entities.Table.html">Layers/Tables</a></td>     
+    <td width="170"><a href="../general/FeatureFinder.html">Facility/Feature Finder</a></td> 
+    <td width="110"><a href="../general/Relationships.html">Relationships</a></td> 
+    <td width="100"><a href="../general/MapTypes.html">Map Types</a></td> 
+    <td width="110"><a href="../general/Admin_Geography_Levels.html">Admin Levels</a></td>
+    <td width="140"><a href="../general/DataDictionaryReference.html">Dictionary Reference</a></td>      
+   </tr>
+</table>
+<br />
+Click on Lookup Table column links to see domain values for an attribute. Click on column headings to sort.
+<br /><br />
+    <table class="sortable" border="1">
+     <thead>
+      <tr>
+        <th width="70" align="center"><u>No.</u></th>
+        <th><u>Name</u></th>
+        <th width="250"><u>Full Name</u></th>
+        <th width="400"><u>Description</u></th>
+        <th width="175"><u>Data Type</u></th>
+        <th width="175"><u>Max Chars</u></th>
+        <th><u>Lookup Table</u></th>
+      </tr>
+     </thead>  
+      <tr>
+        <td align="center">1</td>
+        <td align="center">OBJECTID</td>
+        <td>Object ID</td>
+        <td width="400">ESRI unique ID.</td>
+        <td align="center">OID</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">2</td>
+        <td align="center">STATUS_ID</td>
+        <td>Status ID</td>
+        <td width="400">The Status ID is the Key into the STATUS table, which is used to publish various attributes that provide information on the status of the navigable link (e.g., Detailed City, Urban, In Process Data or Transport Verified). See 5.31 Status (Status) section.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">3</td>
+        <td align="center">IS_ALIGNED</td>
+        <td>Is Aligned</td>
+        <td width="400">Indicates that this node is on the boundary between two database regions and that its X and Y Coordinates have been matched to a node in the adjacent region. Identifies nodes at the boundary of a database for merging with other databases.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.Status.IS_ALIGNED.html'>Status.IS_ALIGNED</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">4</td>
+        <td align="center">STUB_LINK</td>
+        <td>Stub Link</td>
+        <td width="400">Stub Link identifies navigable Links that intersect the included long haul navigable network.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.Status.STUB_LINK.html'>Status.STUB_LINK</a></td>
+      </tr>
+      <tr>
+        <td align="center">5</td>
+        <td align="center">LONG_HAUL_NAV</td>
+        <td>Long Haul Navigable</td>
+        <td width="400">Long Haul Navigable indicates that a navigable Link is part of a Long Haul product.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.Status.LONG_HAUL_NAV.html'>Status.LONG_HAUL_NAV</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">6</td>
+        <td align="center">FULL_GEOMETRY</td>
+        <td>Full Geometry</td>
+        <td width="400">Full Geometry identifies that a link has the complete geometry of the road network surrounding it. Note: The same value is applied to all of the links comprising a countryΓÇÖs road network. Thus, Full Geometry indicates that a link is within a country that has all of the road network geometry included.Full Geometry allows more precise route calculation and route guidance. It also allows more accurate timing of guidance.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.Status.FULL_GEOMETRY.html'>Status.FULL_GEOMETRY</a></td>
+      </tr>
+      <tr>
+        <td align="center">7</td>
+        <td align="center">IN_PROCESS_DATA</td>
+        <td>In Process Data</td>
+        <td width="400">In Process Data identifies that a link is included prior to completion to full specification. The In Process Data attribute on links indicates that the links do not have full routing attributes. Travel Direction, Speed Category, etc. may not represent reality.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.Status.IN_PROCESS_DATA.html'>Status.IN_PROCESS_DATA</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">8</td>
+        <td align="center">URBAN</td>
+        <td>Urban</td>
+        <td width="400">This attribute identifies links located within a Built-up Area polygon. This attribute can be used for map display.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.Status.URBAN.html'>Status.URBAN</a></td>
+      </tr>
+      <tr>
+        <td align="center">9</td>
+        <td align="center">TRANSPORT_VERIFIED</td>
+        <td>Transport Verified</td>
+        <td width="400">Transport Verified indicates if the link has been verified for the attribution as defined in the Trucks specification. Transport Verified attribute can be used to determine if the link can be reliably used for transport routing.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.Status.TRANSPORT_VERIFIED.html'>Status.TRANSPORT_VERIFIED</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">10</td>
+        <td align="center">ENHANCED_GEOMETRY</td>
+        <td>Enhanced Geometry</td>
+        <td width="400">Enhanced Geometry indicates that the geometry associated with a Link meets the positional accuracy. Enhanced Geometry may be used to identify links with an enhanced level of geometrical accuracy.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.Status.ENHANCED_GEOMETRY.html'>Status.ENHANCED_GEOMETRY</a></td>
+      </tr>
+      <tr>
+        <td align="center">11</td>
+        <td align="center">DETAILED_CITY</td>
+        <td>Detailed City</td>
+        <td width="400">This attribute specifies whether a link is part of a Detailed City coverage area. If Detailed City = N, then the inclusion level may be either Network, In-Process Data, or City-to-City. This attribute allows systems to adapt to different levels of attributing.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.Status.DETAILED_CITY.html'>Status.DETAILED_CITY</a></td>
+      </tr>
+
+    </table>
+
+<br/>
+  </body>
+</html>
+

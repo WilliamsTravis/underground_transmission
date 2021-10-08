@@ -1,0 +1,251 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="../css/DataDictionary.css" type="text/css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  
+    <script src="../js/sorttable.js"></script>
+    
+    <title>
+    NA.ConditionDriverAlert Attributes Html  
+   </title>
+  </head>
+
+  <body>
+   <table>
+    <tr>
+     <td rowspan="2"><img src="../images/orglogo.jpg" border="1" height="120"/> </td>     
+      <td>
+      <table>
+       <tr>
+        <td><h1>2020 Q3 File Geodatabase Plus Data Dictionary</h1></td>
+      </tr>
+     </table>
+     </td>
+    </tr>
+   </table>
+
+  <table>
+   <tr><td colspan="7" align="center"><h2>NA.ConditionDriverAlert Attributes </h2></td></tr>
+   <tr>
+    <td width="50"></td> 
+    <td width="80"><a href="../general/DataDictionaryReadme.html">Read Me</a></td>  
+    <td width="90"><a href="../general/Overview.html">Overview</a></td>      
+    <td width="115"><a href="../general/Entities.Table.html">Layers/Tables</a></td>     
+    <td width="170"><a href="../general/FeatureFinder.html">Facility/Feature Finder</a></td> 
+    <td width="110"><a href="../general/Relationships.html">Relationships</a></td> 
+    <td width="100"><a href="../general/MapTypes.html">Map Types</a></td> 
+    <td width="110"><a href="../general/Admin_Geography_Levels.html">Admin Levels</a></td>
+    <td width="140"><a href="../general/DataDictionaryReference.html">Dictionary Reference</a></td>      
+   </tr>
+</table>
+<br />
+Click on Lookup Table column links to see domain values for an attribute. Click on column headings to sort.
+<br /><br />
+    <table class="sortable" border="1">
+     <thead>
+      <tr>
+        <th width="70" align="center"><u>No.</u></th>
+        <th><u>Name</u></th>
+        <th width="250"><u>Full Name</u></th>
+        <th width="400"><u>Description</u></th>
+        <th width="175"><u>Data Type</u></th>
+        <th width="175"><u>Max Chars</u></th>
+        <th><u>Lookup Table</u></th>
+      </tr>
+     </thead>  
+      <tr>
+        <td align="center">1</td>
+        <td align="center">OBJECTID</td>
+        <td>Object ID</td>
+        <td width="400">ESRI unique ID.</td>
+        <td align="center">OID</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">2</td>
+        <td align="center">CONDITION_ID</td>
+        <td>Condition ID</td>
+        <td width="400">Condition ID publishes the HERE Condition ID that is represented by the Turn.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">3</td>
+        <td align="center">TRAFFIC_SIGN_TYPE</td>
+        <td>Traffic Sign Type</td>
+        <td width="400">The Traffic Sign Type identifies the type of warning sign. The Traffic Sign Type can be used to give specific driver alert messaging using the sign type. Traffic Sign Type can also be used to display the Traffic Sign. Warning signs can be used in optimizing route calculation.</td>
+        <td align="center">SmallInteger</td>
+        <td align="right">2</td>
+        <td align="center"><a href='../AttributeDomains/NA.ConditionDriverAlert.TRAFFIC_SIGN_TYPE.html'>ConditionDriverAlert.TRAFFIC_SIGN_TYPE</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">4</td>
+        <td align="center">TRAFFIC_SIGN_VALUE</td>
+        <td>Traffic Sign Value</td>
+        <td width="400">The Traffic Sign modifier Traffic Sign Value provides values visible on the sign related to specific sign types. Traffic Sign Value can be used to display the traffic signs with the exact restriction or information as provided on the sign.</td>
+        <td align="center">String</td>
+        <td align="right">100</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">5</td>
+        <td align="center">GEN_WARNING_SIGN_TYPE</td>
+        <td>General Warning Sign Type</td>
+        <td width="400">The Traffic Sign modifier General Warning Sign Type is used to specify the nature or a general warning sign (Traffic Sign Type = 22). General Warning Sign Type can be used to explicitly indicate the type of warning for a General Warning sign.</td>
+        <td align="center">SmallInteger</td>
+        <td align="right">2</td>
+        <td align="center"><a href='../AttributeDomains/NA.ConditionDriverAlert.GEN_WARNING_SIGN_TYPE.html'>ConditionDriverAlert.GEN_WARNING_SIGN_TYPE</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">6</td>
+        <td align="center">TRAFFIC_SIGN_CATEGORY</td>
+        <td>Traffic Sign Category</td>
+        <td width="400">Traffic Sign Category identifies the main sign category to which the sign belongs to. Traffic Sign Category can be used to give specific informative messaging.</td>
+        <td align="center">SmallInteger</td>
+        <td align="right">2</td>
+        <td align="center"><a href='../AttributeDomains/NA.ConditionDriverAlert.TRAFFIC_SIGN_CATEGORY.html'>ConditionDriverAlert.TRAFFIC_SIGN_CATEGORY</a></td>
+      </tr>
+      <tr>
+        <td align="center">7</td>
+        <td align="center">TRAFFIC_SIGN_SUBCATEGORY</td>
+        <td>Traffic Sign Subcategory</td>
+        <td width="400">The Traffic Sign Subcategory is an attribute that identifies the sub-category of TRAFFIC_SIGN_CATEGORY = 1 - Regulatory Sign. Traffic Sign Subcategory can be used to group Traffic Signs related to Priority.</td>
+        <td align="center">SmallInteger</td>
+        <td align="right">2</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">8</td>
+        <td align="center">SIGN_DURATION</td>
+        <td>Supplemental Sign Duration</td>
+        <td width="400">The Traffic Sign attribute Supplemental Sign Duration indicates additional sign shield that are displayed below the Traffic Sign indicating the duration of the warning. Note: Existing Supplemental Sign Duration is extended to allow for multiple Supplemental Sign Duration attributes for one Traffic Sign. A Language Code field is added to the ConditionText layer to explicitly indicate the language in which the Supplemental Sign Duration is published. File Geodatabase only publishes Latin-1 supplemental sign text. The supplemental sign duration can be used for map display or to indicate the duration of the warning in the driver alert messaging.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">9</td>
+        <td align="center">SIGN_PREWARNING</td>
+        <td>Supplemental Sign Pre-Warning</td>
+        <td width="400">The Traffic Sign condition attribute Supplemental Sign Pre-Warning indicates additional sign shields that are displayed below the Traffic Sign indicating an upcoming warning or regulation. These signs are only included when no additional Traffic Sign is present at the actual start of the warning or regulation. Note: Existing Supplemental Sign Pre-Warning is extended to allow for multiple Supplemental Sign Pre-Warning modifiers for one Traffic Sign condition. A Language Code field is added to ConditionText layer to explicitly indicate the language in which the Supplemental Sign Duration is published. File Geodatabase only publishes Latin-1 sign text. The supplemental sign pre-warning can be used for map display or to indicate a prewarning for an upcoming warning or regulation in the driver alert messaging.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">10</td>
+        <td align="center">SIGN_VALIDITY_TIME</td>
+        <td>Supplemental Sign Validity Time</td>
+        <td width="400">The Traffic Sign condition attribute Supplemental Sign Validity Time indicates that an additional sign shields exists, displayed below the Traffic Sign, indicating a specific time(s) at which the Traffic Sign is applicable. Example: No overtaking for Trucks from 8:30 till 18:00 hours. Existing Supplemental Sign Pre-Warning is extended to allow for multiple Supplemental Sign Pre-Warning modifiers for one Traffic Sign condition. A Language Code field is added to ConditionText layer to explicitly indicate the language in which the Supplemental Sign Duration is published. File Geodatabase only publishes Latin-1 supplemental sign text. Supplemental sign text for validity time can be used to display the supplemental traffic sign with information as present on the sign.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">11</td>
+        <td align="center">SIGN_VEHICLE_TRUCK</td>
+        <td>Sign Vehicle Truck</td>
+        <td width="400">Sign Vehicle Truck indicates if a supplemental sign applies to trucks.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">12</td>
+        <td align="center">SIGN_VEHICLE_HEAVY_TRUCK</td>
+        <td>Sign Vehicle Heavy Truck</td>
+        <td width="400">Sign Vehicle Heavy Truck indicates if a supplemental sign applies to heavy trucks.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">13</td>
+        <td align="center">SIGN_VEHICLE_BUS</td>
+        <td>Sign Vehicle Bus</td>
+        <td width="400">Sign Vehicle Bus indicates if a supplemental sign applies to buses.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">14</td>
+        <td align="center">SIGN_VEHICLE_AUTO_TRAILER</td>
+        <td>Sign Vehicle Auto Trailer</td>
+        <td width="400">Sign Vehicle Auto Trailer indicates if a supplemental sign applies to auto trailers.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">15</td>
+        <td align="center">SIGN_VEHICLE_MOTORHOME</td>
+        <td>Sign Vehicle Motorhome</td>
+        <td width="400">Sign Vehicle Motorhome indicates if a supplemental sign applies to motorhomes.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">16</td>
+        <td align="center">SIGN_VEHICLE_MOTORCYCLE</td>
+        <td>Sign Vehicle Motorcycle</td>
+        <td width="400">Sign Vehicle Motorcycle indicates if a supplemental sign applies to motorcycles.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">17</td>
+        <td align="center">DIRECTION</td>
+        <td>Direction</td>
+        <td width="400">Direction is a general condition modifier used for select single-link conditions that indicates the link direction for which a direction-dependent attribute is applicable. Direction is a sub-attribute to direction dependent condition coding. Direction can be used to retrieve the link direction for which the No Overtaking and Protected Overtaking condition applies.</td>
+        <td align="center">SmallInteger</td>
+        <td align="right">2</td>
+        <td align="center"><a href='../AttributeDomains/NA.ConditionDriverAlert.DIRECTION.html'>ConditionDriverAlert.DIRECTION</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">18</td>
+        <td align="center">SIGNAL_SIGN_LOCATION</td>
+        <td>Signal/sign Location</td>
+        <td width="400">Signal/Sign Location identifies the location of the Traffic Signal at the intersection. Signal/Sign Location can be used to display the location of the Traffic Signal at the intersection.</td>
+        <td align="center">SmallInteger</td>
+        <td align="right">2</td>
+        <td align="center"><a href='../AttributeDomains/NA.ConditionDriverAlert.SIGNAL_SIGN_LOCATION.html'>ConditionDriverAlert.SIGNAL_SIGN_LOCATION</a></td>
+      </tr>
+      <tr>
+        <td align="center">19</td>
+        <td align="center">RAILWAY_CROSSING_TYPE</td>
+        <td>Railway Crossing Type</td>
+        <td width="400">Railway Crossing Type indicates if the Railway Crossing is protected with a barrier or unprotected without barriers. The supplemental sign displaying validity time can be used for map display.</td>
+        <td align="center">SmallInteger</td>
+        <td align="right">2</td>
+        <td align="center"><a href='../AttributeDomains/NA.ConditionDriverAlert.RAILWAY_CROSSING_TYPE.html'>ConditionDriverAlert.RAILWAY_CROSSING_TYPE</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">20</td>
+        <td align="center">WEATHER_TYPE</td>
+        <td>Weather Type</td>
+        <td width="400">Weather Type provides the weather type related to the Transport Special Speed Situation condition. This sub-attribute indicates the type of weather condition that is affecting the transport speed limit. Weather Type can be used to display the type of weather condition affecting the truckspecific speed limit or to alert the driver for truck-specific speed limits on the road.</td>
+        <td align="center">SmallInteger</td>
+        <td align="right">2</td>
+        <td align="center"><a href='../AttributeDomains/NA.ConditionDriverAlert.WEATHER_TYPE.html'>ConditionDriverAlert.WEATHER_TYPE</a></td>
+      </tr>
+      <tr>
+        <td align="center">21</td>
+        <td align="center">IMPORTANCE_IND</td>
+        <td>Importance Indicator</td>
+        <td width="400">Importance Indicator is a rating, on a scale of 1 to 10, of the importance of a Bridge, Tunnel, Traffic Signal or Stop Sign for Route Guidance.</td>
+        <td align="center">SmallInteger</td>
+        <td align="right">2</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+
+    </table>
+
+<br/>
+  </body>
+</html>
+

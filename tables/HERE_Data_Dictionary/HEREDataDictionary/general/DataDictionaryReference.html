@@ -1,0 +1,92 @@
+﻿<html>
+  <head>
+    <link rel="stylesheet" href="../css/DataDictionary.css" type="text/css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  
+    <script src="../js/sorttable.js"></script>
+    
+    <title>
+    Dictionary Reference  
+   </title>
+  </head>
+
+  <body>
+   <table>
+    <tr>
+     <td rowspan="2"><img src="../images/orglogo.jpg" border="1" height="120"/> </td>    
+      <td>
+      <table>
+       <tr>
+        <td><h1>2020 Q3 File Geodatabase Plus Data Dictionary</h1></td>
+      </tr>
+     </table>
+     </td>
+    </tr>
+   </table>
+
+  <table>
+   <tr><td colspan="7" align="center"><h2>Data Dictionary Reference</h2></td></tr>
+   <tr>
+    <td width="50"></td> 
+    <td width="80"><a href="../general/DataDictionaryReadme.html">Read Me</a></td>  
+    <td width="90"><a href="../general/Overview.html">Overview</a></td>      
+    <td width="115"><a href="../general/Entities.Table.html">Layers/Tables</a></td>     
+    <td width="170"><a href="../general/FeatureFinder.html">Facility/Feature Finder</a></td> 
+    <td width="110"><a href="../general/Relationships.html">Relationships</a></td> 
+    <td width="100"><a href="../general/MapTypes.html">Map Types</a></td> 
+    <td width="110"><a href="../general/Admin_Geography_Levels.html">Admin Levels</a></td>
+    <td width="140"><a href="../general/DataDictionaryReference.html">Dictionary Reference</a></td>      
+   </tr>
+</table>
+<br/>
+This page provides descriptions of the data dictionary tables and columns used to describe Layers/Tables, Attributes, and Lookup Tables.
+<h3>Layer/Table Information</h3>
+<table width="650" border="1">
+
+ <tr><th>No.</th><th>Name</th><th width="500">Description</th></tr>
+
+ <tr><td align="center">1</td><td>No.</td><td width="500">A sequential integer value for used for presentation purposes only.</td></tr>
+
+ <tr class="striped"><td align="center">2</td><td>GeoDatabase</td><td width="500">The ESRI File Geodatabase the layer or table is found in.</td></tr>
+
+ <tr><td align="center">3</td><td>Name</td><td width="500">The actual name of the layer (feature class) or table.</td></tr>
+
+ <tr class="striped"><td align="center">4</td><td>Full Name</td><td width="500">A more descriptive and meaningful name for the layer or table, typically with abbreviations and acronyms spelled out.</td></tr>
+
+ <tr><td align="center">5</td><td>Category</td><td width="500">HERE data categories including Geocoding Tables, Mapping Layers, Metadata, Point of Interest (POI), Postal Code Centroids and Polygons, Premium Content Tagging Tables, Routing Application Layers and Tables, Routing Tables, Traffic Patterns, Various Content, and Voice Data.</td></tr>
+
+ <tr class="striped"><td align="center">6</td><td>Type</td><td width="500">One of 4 types: Point, Polyline, Polygon, or Table.</td></tr>
+
+ <tr><td align="center">7</td><td>Description</td><td width="500">A description of the layer or table, taken from HERE's File Geodatabase Reference Manual, or other HERE documentation.</td></tr>
+
+ <tr class="striped"><td align="center">8</td><td>Dataset</td><td width="500">The ESRI File Geodatabase Dataset the layer or table is found in if applicable.</td></tr>
+
+ <tr><td align="center">9</td><td>Rows</td><td width="500">The number of data rows in the layer or table.</td></tr>
+
+ <tr  class="striped"><td align="center">10</td><td>Attributes</td><td width="500">The number of attributes in the layer or table.</td></tr>
+</table>
+
+<h3>Attribute Information</h3>
+<table  width="650" border="1">
+ <tr><th>No.</th><th>Name</th><th width="500">Description</th></tr>
+<tr><td align="center">1</td><td>No.</td><td width="500">A sequential integer value for used for presentation purposes only.</td></tr>
+ <tr class="striped"><td align="center">2</td><td>Name</td><td width="500">The actual name of the attribute.</td></tr>
+<tr><td align="center">3</td><td>Full Name</td><td width="500">A more descriptive and meaningful name for the attribute, typically with abbreviations and acronyms spelled out.</td></tr>
+ <tr class="striped"><td align="center">4</td><td>Description</td><td width="500">A description of the attribute, as taken from the attribute's Definition and Usage sections in HERE's File Geodatabase Reference Manual.</td></tr>
+<tr><td align="center">5</td><td>Data Type</td><td width="500">The data type used for the attribute.</td></tr>
+ <tr class="striped"><td align="center">6</td><td>Max Chars</td><td width="500">The maximum number of characters used for text string data types.</td></tr>
+<tr><td align="center">7</td><td>Lookup Table</td><td width="500">When applicable, a hyperlink to a table of code=value pairs, or single values, if the attribute uses a controlled value domain.</td></tr>
+</table>
+
+<h3>Lookup Table Information</h3>
+<table  width="650" border="1">
+ <tr><th>No.</th><th>Name</th><th width="500">Description</th></tr>
+<tr><td align="center">1</td><td>No.</td><td width="500">A sequential integer value for used for presentation purposes only.</td></tr>
+<tr class="striped"><td align="center">2</td><td>Value</td><td width="500">The actual data values stored in the attribute.</td></tr>
+<tr><td align="center">3</td><td>Description</td><td width="500">The meaning of the data values stored in the attribute.</td></tr>
+<tr class="striped"><td align="center">4</td><td>Specification</td><td width="500">For a subset of attributes, an additional metadata column of domain value information, from HERE documentation Specification sections.</td></tr>
+</table>
+
+<br/>
+  </body>
+</html>

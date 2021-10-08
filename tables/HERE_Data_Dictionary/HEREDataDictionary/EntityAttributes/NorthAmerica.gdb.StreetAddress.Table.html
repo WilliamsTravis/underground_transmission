@@ -1,0 +1,368 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="../css/DataDictionary.css" type="text/css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  
+    <script src="../js/sorttable.js"></script>
+    
+    <title>
+    NA.StreetAddress Attributes Html  
+   </title>
+  </head>
+
+  <body>
+   <table>
+    <tr>
+     <td rowspan="2"><img src="../images/orglogo.jpg" border="1" height="120"/> </td>     
+      <td>
+      <table>
+       <tr>
+        <td><h1>2020 Q3 File Geodatabase Plus Data Dictionary</h1></td>
+      </tr>
+     </table>
+     </td>
+    </tr>
+   </table>
+
+  <table>
+   <tr><td colspan="7" align="center"><h2>NA.StreetAddress Attributes </h2></td></tr>
+   <tr>
+    <td width="50"></td> 
+    <td width="80"><a href="../general/DataDictionaryReadme.html">Read Me</a></td>  
+    <td width="90"><a href="../general/Overview.html">Overview</a></td>      
+    <td width="115"><a href="../general/Entities.Table.html">Layers/Tables</a></td>     
+    <td width="170"><a href="../general/FeatureFinder.html">Facility/Feature Finder</a></td> 
+    <td width="110"><a href="../general/Relationships.html">Relationships</a></td> 
+    <td width="100"><a href="../general/MapTypes.html">Map Types</a></td> 
+    <td width="110"><a href="../general/Admin_Geography_Levels.html">Admin Levels</a></td>
+    <td width="140"><a href="../general/DataDictionaryReference.html">Dictionary Reference</a></td>      
+   </tr>
+</table>
+<br />
+Click on Lookup Table column links to see domain values for an attribute. Click on column headings to sort.
+<br /><br />
+    <table class="sortable" border="1">
+     <thead>
+      <tr>
+        <th width="70" align="center"><u>No.</u></th>
+        <th><u>Name</u></th>
+        <th width="250"><u>Full Name</u></th>
+        <th width="400"><u>Description</u></th>
+        <th width="175"><u>Data Type</u></th>
+        <th width="175"><u>Max Chars</u></th>
+        <th><u>Lookup Table</u></th>
+      </tr>
+     </thead>  
+      <tr>
+        <td align="center">1</td>
+        <td align="center">OBJECTID</td>
+        <td>Object ID</td>
+        <td width="400">ESRI unique ID.</td>
+        <td align="center">OID</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">2</td>
+        <td align="center">STREET_ADDRESS_ID</td>
+        <td>Street Address ID</td>
+        <td width="400">Unique identifier for a named, addressed navigable link.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">3</td>
+        <td align="center">LINK_ID</td>
+        <td>Link ID</td>
+        <td width="400">Unique identifier for the Link to which the Street Address relates. Link ID is used to identify each link in the database.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">4</td>
+        <td align="center">ISO_COUNTRY_CODE</td>
+        <td>ISO Country Code</td>
+        <td width="400">A three-letter country code as defined by the International Organization for Standardization. The ISO Country Code indicates in which country the feature is located. Different layers describe different features. ISO Country Code attribution is applied to Navigable Links, Administrative Hierarchies, and POIs in various layers.</td>
+        <td align="center">String</td>
+        <td align="right">3</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.ISO_COUNTRY_CODE.html'>StreetAddress.ISO_COUNTRY_CODE</a></td>
+      </tr>
+      <tr>
+        <td align="center">5</td>
+        <td align="center">LANGUAGE_CODE</td>
+        <td>Language Code</td>
+        <td width="400">The language associated with the feature name. The Language Code, in conjunction with Prefix, Feature Name, Street Type, and Suffix, can be used in destination selection, route guidance, and map display.</td>
+        <td align="center">String</td>
+        <td align="right">3</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.LANGUAGE_CODE.html'>StreetAddress.LANGUAGE_CODE</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">6</td>
+        <td align="center">STREET_NAME</td>
+        <td>Street Name</td>
+        <td width="400">The Street Name attribute is the full spelling of the street name including the Street Name Prefix, Street Name Suffix and Street Type.</td>
+        <td align="center">String</td>
+        <td align="right">100</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">7</td>
+        <td align="center">BASE_NAME</td>
+        <td>Base Name</td>
+        <td width="400">The Base Name part of the Street Name.</td>
+        <td align="center">String</td>
+        <td align="right">60</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">8</td>
+        <td align="center">STREET_TYPE</td>
+        <td>Street Type</td>
+        <td width="400">The full street type of the Street Name (e.g., Avenue del la, Via della or Ave).</td>
+        <td align="center">String</td>
+        <td align="right">30</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">9</td>
+        <td align="center">STREET_TYPE_FULL_SPELLING</td>
+        <td>Street Type Full Spelling</td>
+        <td width="400">Street Type Full Spelling stores the full spelling of the Street Type.</td>
+        <td align="center">String</td>
+        <td align="right">50</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">10</td>
+        <td align="center">STREET_TYPE_BEFORE</td>
+        <td>Street Type Before</td>
+        <td width="400">Street Type Before indicates if the Street Type is before or after the Base Name. Street Type Before can be used to determine the placement of the Street Type for usage in destination selection, map display and route guidance.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">11</td>
+        <td align="center">STREET_TYPE_ATTACHED</td>
+        <td>Street Type Attached</td>
+        <td width="400">Street Type Attached indicates whether the Street Type is attached or separated by a space fromthe Base Name. Street Type Attached can be used to determine the location of the Street Type for usage in destination selection, map display and route guidance.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">12</td>
+        <td align="center">PREFIX</td>
+        <td>Prefix</td>
+        <td width="400">Prefix is a directional identifier that precedes the Feature Name of a road.</td>
+        <td align="center">String</td>
+        <td align="right">10</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.PREFIX.html'>StreetAddress.PREFIX</a></td>
+      </tr>
+      <tr>
+        <td align="center">13</td>
+        <td align="center">SUFFIX</td>
+        <td>Suffix</td>
+        <td width="400">Suffix is a directional identifier that follows, but is not included in, the Feature Name of a road.</td>
+        <td align="center">String</td>
+        <td align="right">10</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.SUFFIX.html'>StreetAddress.SUFFIX</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">14</td>
+        <td align="center">ROUTE_TYPE</td>
+        <td>Route Type</td>
+        <td width="400">The route type indicates that the road's name is actually a route number and in many countries is displayed in a shield symbol (i.e. Interstate and State routes in the U.S.). Name Route Type can be used for display and map publication to display the appropriate route shield when used in conjunction with the Direction on Sign.</td>
+        <td align="center">SmallInteger</td>
+        <td align="right">2</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.ROUTE_TYPE.html'>StreetAddress.ROUTE_TYPE</a></td>
+      </tr>
+      <tr>
+        <td align="center">15</td>
+        <td align="center">DIRECTION_ON_SIGN</td>
+        <td>Direction On Sign</td>
+        <td width="400">The official directional identifiers assigned to highways. Direction on Sign should be used in conjunction with Feature Name, Name on Road Sign, and Name Route Type. For route guidance, US-101 South should be used and not just US-101 when appropriate.</td>
+        <td align="center">String</td>
+        <td align="right">10</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.DIRECTION_ON_SIGN.html'>StreetAddress.DIRECTION_ON_SIGN</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">16</td>
+        <td align="center">IS_NAME_ON_ROAD_SIGN</td>
+        <td>Is Name on Road Signe</td>
+        <td width="400">Name on Road Sign indicates the name assigned to a road by the official organisation responsible for the existence and maintenance of the road. Name on Road Sign is generally the name posted on the street signs. For destination selection any name may be used. However only names with Name on Road Sign = Y and Exit Number = Y should be used for route guidance. A link may have more than one name with Name on Road Sign = Y. There is no distinction in this case to which name is more important than the other name.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.IS_NAME_ON_ROAD_SIGN.html'>StreetAddress.IS_NAME_ON_ROAD_SIGN</a></td>
+      </tr>
+      <tr>
+        <td align="center">17</td>
+        <td align="center">IS_EXPLICATABLE</td>
+        <td>Is Explicatable</td>
+        <td width="400">Explicatable indicates which names should be used to identify a given road when providing directions. Names with Name on Road Sign = Y or Exit Number = Y are always suitable for explication. Other names on a link may or may not be. The Explicatable flag will show this. Names which are Explicatable = N are included in the database to assist in destination selection but are not recommended for route guidance.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.IS_EXPLICATABLE.html'>StreetAddress.IS_EXPLICATABLE</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">18</td>
+        <td align="center">IS_JUNCTION_NAME</td>
+        <td>Is Junction Name</td>
+        <td width="400">Junction Name identifies a ramp system that comprises a named Junction between two or more motorways or a named motorway exit/entrance. Junction Name allows for explication of an exit or entry ramp that comprises a named junction without having to use the sign text.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.IS_JUNCTION_NAME.html'>StreetAddress.IS_JUNCTION_NAME</a></td>
+      </tr>
+      <tr>
+        <td align="center">19</td>
+        <td align="center">IS_EXIT_NAME</td>
+        <td>Is Exit Name</td>
+        <td width="400">Exit Name identifies a name that is an (alpha)numeric exit name. An exit number (Exit Name = Y) as a feature name can be used for destination selection.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.IS_EXIT_NAME.html'>StreetAddress.IS_EXIT_NAME</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">20</td>
+        <td align="center">IS_STALE_NAME</td>
+        <td>Is Stale Name</td>
+        <td width="400">Stale Name identifies old names that are still in use. Stale Name records are included in the database to assist in destination selection but should never be used during route guidance or map display.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.IS_STALE_NAME.html'>StreetAddress.IS_STALE_NAME</a></td>
+      </tr>
+      <tr>
+        <td align="center">21</td>
+        <td align="center">IS_POSTAL_NAME</td>
+        <td>Is Postal Name</td>
+        <td width="400">Postal Name identifies additional names that are added to a link merely to match a postal service file. They could not be verified on any other sources or by field research. Postal Names are included in the database to assist in destination selection but should never be used during route guidance or map display.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.IS_POSTAL_NAME.html'>StreetAddress.IS_POSTAL_NAME</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">22</td>
+        <td align="center">IS_VANITY_NAME</td>
+        <td>Is Vanity Name</td>
+        <td width="400">Vanity Name identifies an alternative name (specific to a business, settlement, location, etc.) other than the official street name. The Vanity Name may only apply to one building along the street (e.g. IBM Plaza). Vanity Names are included in the database to assist in address identification and may be used for route guidance.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.IS_VANITY_NAME.html'>StreetAddress.IS_VANITY_NAME</a></td>
+      </tr>
+      <tr>
+        <td align="center">23</td>
+        <td align="center">IS_SCENIC_NAME</td>
+        <td>Is Scenic Name</td>
+        <td width="400">Scenic Route Name identifies a unique name that represents a Scenic Route. Scenic Route Name can be used for destination selection and map display.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.IS_SCENIC_NAME.html'>StreetAddress.IS_SCENIC_NAME</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">24</td>
+        <td align="center">LEFT_START_ADDRESS</td>
+        <td>Left Start Address</td>
+        <td width="400">This is the house number on the left side of the the reference end of the Link. The Left Start Address is used in conjunction with related address attributes and the associated name for destination selection and geocoding.</td>
+        <td align="center">String</td>
+        <td align="right">10</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">25</td>
+        <td align="center">LEFT_END_ADDRESS</td>
+        <td>Left End Address</td>
+        <td width="400">This is the house number on the left side of the non-reference end of the Link. The Left End Address is used in conjunction with related address attributes and the associated name for destination selection and geocoding.</td>
+        <td align="center">String</td>
+        <td align="right">10</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">26</td>
+        <td align="center">LEFT_SCHEME</td>
+        <td>Left Scheme</td>
+        <td width="400">The numbering scheme for the addresses assigned to the left side of the link. The Left Address Scheme is used in conjunction with related address attributes and the associated name for destination selection and geocoding.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.LEFT_SCHEME.html'>StreetAddress.LEFT_SCHEME</a></td>
+      </tr>
+      <tr>
+        <td align="center">27</td>
+        <td align="center">LEFT_ADDRESS_FORMAT</td>
+        <td>Left Address Format</td>
+        <td width="400">The format of the addresses on the left side of the link. The Left Address Format is used in conjunction with related address attributes and the associated name for destination selection and geocoding.</td>
+        <td align="center">String</td>
+        <td align="right">2</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.LEFT_ADDRESS_FORMAT.html'>StreetAddress.LEFT_ADDRESS_FORMAT</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">28</td>
+        <td align="center">RIGHT_START_ADDRESS</td>
+        <td>Right Start Address</td>
+        <td width="400">This is the house number on the right side of the the reference end of the Link. The right Start Address is used in conjunction with related address attributes and the associated name for destination selection and geocoding.</td>
+        <td align="center">String</td>
+        <td align="right">10</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">29</td>
+        <td align="center">RIGHT_END_ADDRESS</td>
+        <td>Right End Address</td>
+        <td width="400">This is the house number on the right side of the non-reference end of the Link. The right End Address is used in conjunction with related address attributes and the associated name for destination selection and geocoding.</td>
+        <td align="center">String</td>
+        <td align="right">10</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">30</td>
+        <td align="center">RIGHT_SCHEME</td>
+        <td>Right Scheme</td>
+        <td width="400">The numbering scheme for the addresses assigned to the right side of the link. The Right Address Scheme is used in conjunction with related address attributes and the associated name for destination selection and geocoding.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.RIGHT_SCHEME.html'>StreetAddress.RIGHT_SCHEME</a></td>
+      </tr>
+      <tr>
+        <td align="center">31</td>
+        <td align="center">RIGHT_ADDRESS_FORMAT</td>
+        <td>Right Address Format</td>
+        <td width="400">The format of the addresses on the right side of the link. The Right Address Format is used in conjunction with related address attributes and the associated name for destination selection and geocoding.</td>
+        <td align="center">String</td>
+        <td align="right">2</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.RIGHT_ADDRESS_FORMAT.html'>StreetAddress.RIGHT_ADDRESS_FORMAT</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">32</td>
+        <td align="center">ADDRESS_TYPE</td>
+        <td>Address  Type</td>
+        <td width="400">Address Type identifies the type of the house number range assigned to the link. The Address Type is used in conjunction with related address attributes, and the associated name for destination selection and geocoding.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.StreetAddress.ADDRESS_TYPE.html'>StreetAddress.ADDRESS_TYPE</a></td>
+      </tr>
+      <tr>
+        <td align="center">33</td>
+        <td align="center">ROAD_NAME_ID</td>
+        <td>Road Name ID</td>
+        <td width="400">The Road Name ID defines a unique identifier for the Street Name to which the Street Address relates. The Road Name ID can be used to associate Transliterations and Phonetic Data to Street Names.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">34</td>
+        <td align="center">SUBTYPE</td>
+        <td>Subtype</td>
+        <td width="400">ESRI Geodatabase Subtype.</td>
+        <td align="center">SmallInteger</td>
+        <td align="right">2</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+
+    </table>
+
+<br/>
+  </body>
+</html>
+

@@ -1,0 +1,188 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="../css/DataDictionary.css" type="text/css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  
+    <script src="../js/sorttable.js"></script>
+    
+    <title>
+    NA.GuidanceAssociation Attributes Html  
+   </title>
+  </head>
+
+  <body>
+   <table>
+    <tr>
+     <td rowspan="2"><img src="../images/orglogo.jpg" border="1" height="120"/> </td>     
+      <td>
+      <table>
+       <tr>
+        <td><h1>2020 Q3 File Geodatabase Plus Data Dictionary</h1></td>
+      </tr>
+     </table>
+     </td>
+    </tr>
+   </table>
+
+  <table>
+   <tr><td colspan="7" align="center"><h2>NA.GuidanceAssociation Attributes </h2></td></tr>
+   <tr>
+    <td width="50"></td> 
+    <td width="80"><a href="../general/DataDictionaryReadme.html">Read Me</a></td>  
+    <td width="90"><a href="../general/Overview.html">Overview</a></td>      
+    <td width="115"><a href="../general/Entities.Table.html">Layers/Tables</a></td>     
+    <td width="170"><a href="../general/FeatureFinder.html">Facility/Feature Finder</a></td> 
+    <td width="110"><a href="../general/Relationships.html">Relationships</a></td> 
+    <td width="100"><a href="../general/MapTypes.html">Map Types</a></td> 
+    <td width="110"><a href="../general/Admin_Geography_Levels.html">Admin Levels</a></td>
+    <td width="140"><a href="../general/DataDictionaryReference.html">Dictionary Reference</a></td>      
+   </tr>
+</table>
+<br />
+Click on Lookup Table column links to see domain values for an attribute. Click on column headings to sort.
+<br /><br />
+    <table class="sortable" border="1">
+     <thead>
+      <tr>
+        <th width="70" align="center"><u>No.</u></th>
+        <th><u>Name</u></th>
+        <th width="250"><u>Full Name</u></th>
+        <th width="400"><u>Description</u></th>
+        <th width="175"><u>Data Type</u></th>
+        <th width="175"><u>Max Chars</u></th>
+        <th><u>Lookup Table</u></th>
+      </tr>
+     </thead>  
+      <tr>
+        <td align="center">1</td>
+        <td align="center">OBJECTID</td>
+        <td>Object ID</td>
+        <td width="400">ESRI unique ID.</td>
+        <td align="center">OID</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">2</td>
+        <td align="center">ASSOCIATION_ID</td>
+        <td>Association ID</td>
+        <td width="400">Association ID identifies the POIs involved in the association. Association ID is used to group together POIs belonging to the same association.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">3</td>
+        <td align="center">ASSOCIATION_TYPE</td>
+        <td>Association Type</td>
+        <td width="400">Association Type identifies the type of relationship that exists between POIs involved in a POI Association. Association Type can be used for map display and destination selection to inform a user that a relationship between specific POIs exists.</td>
+        <td align="center">String</td>
+        <td align="right">2</td>
+        <td align="center"><a href='../AttributeDomains/NA.GuidanceAssociation.ASSOCIATION_TYPE.html'>GuidanceAssociation.ASSOCIATION_TYPE</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">4</td>
+        <td align="center">LINK_ID</td>
+        <td>Link ID</td>
+        <td width="400">Unique identifier for the Link to which the Street Address relates. Link ID is used to identify each link in the database.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">5</td>
+        <td align="center">DIRECTION</td>
+        <td>Direction</td>
+        <td width="400">Direction is a general condition modifier used for select single-link conditions that indicates the link direction for which a direction-dependent attribute is applicable. Direction is a sub-attribute to direction dependent condition coding. Direction can be used to retrieve the link direction for which the No Overtaking and Protected Overtaking condition applies.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.GuidanceAssociation.DIRECTION.html'>GuidanceAssociation.DIRECTION</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">6</td>
+        <td align="center">CALCULATED_IMPORTANCE</td>
+        <td>Calculated Importance</td>
+        <td width="400">The Calculated Importance attribute is a rating on the scale of 0 to10 of the importance of a Feature for route guidance. The higher the rating, the more relevant the Feature is for route guidance. The value is calculated based on the other Natural Guidance attributes. The Calculated Importance can be used to determine the relevance of a Feature for route guidance. When multiple Features are relevant for a manoeuvre, the Feature with the highest Calculated Importance can be selected. The Calculated Importance is published for use by those customers that do not want to interpret the individual sub-attributes of the Importance Indicator attributes themselves.</td>
+        <td align="center">SmallInteger</td>
+        <td align="right">2</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">7</td>
+        <td align="center">VISIBILITY</td>
+        <td>Visibility</td>
+        <td width="400">The Visibility attribute defines the visibility of the Feature, from the direction of the associated link. The Visibility attribute defines the visibility of the Feature, from the direction of the associated link and can be used to determine the relevance of a Feature for route guidance. Only used for Natural Guidance.</td>
+        <td align="center">SmallInteger</td>
+        <td align="right">2</td>
+        <td align="center"><a href='../AttributeDomains/NA.GuidanceAssociation.VISIBILITY.html'>GuidanceAssociation.VISIBILITY</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">8</td>
+        <td align="center">SEASONAL_DEPENDENCY</td>
+        <td>Seasonal Dependency</td>
+        <td width="400">The Seasonal Dependency attribute indicates whether the importance of a Feature is (negatively) impacted during a specific time period. The Seasonal Dependency attribute defines the type of restriction, the actual Time Period is mandatory. The Seasonal Dependency attribute can be used to determine the relevance of a Feature for route guidance related to the season of the year, limited to a certain time of year. Only used for Natural Guidance.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">9</td>
+        <td align="center">RELATIVE_DISTANCE</td>
+        <td>Relative Distance</td>
+        <td width="400">The Relative Distance attribute indicates the perceived distance between the Feature and the guidance location. The Relative Distance attribute can be used to determine the relevance of a Feature for route guidance, and if needed to generate an advice specific to the situation. Only used for Natural Guidance.</td>
+        <td align="center">SmallInteger</td>
+        <td align="right">2</td>
+        <td align="center"><a href='../AttributeDomains/NA.GuidanceAssociation.RELATIVE_DISTANCE.html'>GuidanceAssociation.RELATIVE_DISTANCE</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">10</td>
+        <td align="center">POI_ID</td>
+        <td>POI ID</td>
+        <td width="400">Unique ID for the POI.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">11</td>
+        <td align="center">POLYGON_ID</td>
+        <td>Polygon ID</td>
+        <td width="400">Unique identifier for polygon features. Polygon ID can be used to locate all links making up a given polygon. That information, in conjunction with the Side Inclusion for each link in the Feature Name, can be used to build polygons for map display.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">12</td>
+        <td align="center">AGGR_ID</td>
+        <td>Aggregation ID</td>
+        <td width="400">Aggregation ID is a unique identifier for the Aggregated Feature.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">13</td>
+        <td align="center">FEATURE_EXTENT</td>
+        <td>Feature Extent</td>
+        <td width="400">Provides the distance of visibility for an associated feature from the point where the feature becomes visible to the decision point represented by the Junction Guidance point or the Passing Guidance point. Feature Extent contributes to the overall Calculated Importance score of a Guidance Feature.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">14</td>
+        <td align="center">PERMANENCE</td>
+        <td>Permanence</td>
+        <td width="400">Provides a level representing the probable permanence of a feature. Permanence contributes to the overall Calculated Importance of a Guidance Feature.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.GuidanceAssociation.PERMANENCE.html'>GuidanceAssociation.PERMANENCE</a></td>
+      </tr>
+
+    </table>
+
+<br/>
+  </body>
+</html>
+

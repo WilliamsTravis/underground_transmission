@@ -1,0 +1,1273 @@
+﻿<html>
+  <head>
+    <link rel="stylesheet" href="../css/DataDictionary.css" type="text/css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  
+    <script src="../js/sorttable.js"></script>
+    
+    <title>
+    Relationships  
+   </title>
+  </head>
+
+  <body>
+   <table>
+    <tr>
+     <td rowspan="2"><img src="../images/orglogo.jpg" border="1" height="120"/> </td>     
+      <td>
+      <table>
+       <tr>
+        <td><h1>2020 Q3 File Geodatabase Plus Data Dictionary</h1></td>
+      </tr>
+     </table>
+     </td>
+    </tr>
+   </table>
+
+  <table>
+   <tr><td colspan="7" align="center"><h2>Relationships</h2></td></tr>
+   <tr>
+    <td width="50"></td> 
+    <td width="80"><a href="../general/DataDictionaryReadme.html">Read Me</a></td>  
+    <td width="90"><a href="../general/Overview.html">Overview</a></td>      
+    <td width="115"><a href="../general/Entities.Table.html">Layers/Tables</a></td>     
+    <td width="170"><a href="../general/FeatureFinder.html">Facility/Feature Finder</a></td> 
+    <td width="110"><a href="../general/Relationships.html">Relationships</a></td> 
+    <td width="100"><a href="../general/MapTypes.html">Map Types</a></td> 
+    <td width="110"><a href="../general/Admin_Geography_Levels.html">Admin Levels</a></td>
+    <td width="140"><a href="../general/DataDictionaryReference.html">Dictionary Reference</a></td>      
+   </tr>
+</table>
+<br />
+This page lists all File Geodatabase Plus Relationships. Click on column headings to sort.
+<br><br>HERE also provides a dedicated File Geodatabase ERD PDF document, which can be reviewed by clicking <a href="../documentation/File Geodatabase ERD Q3 2019.pdf"><b>here</b></a>.
+      <br/><br/>
+    
+ <table class="sortable" border="1">
+<tr><th>No.</th>
+<th width="125">GeoDatabase</th>
+<th width="275">Origin_Table</th>
+<th width="225">Origin_Key</th>
+<th width="275">Destination_Table</th>
+<th width="225">Destinattion_Key</th>
+<th width="100">Cardinality</th>
+<th width="275">Relation_Name</th>
+</tr>
+
+<tr class="striped"><td align='right'>1</th><td>NorthAmerica.gdb</td>
+<td>Access</td>
+<td>CONDITION_ID</td>
+<td>Condition</td>
+<td>CONDITION_ID</td>
+<td>OneToOne</td>
+<td>CondAccess2Cond</td>
+</tr>
+<tr><td align='right'>2</th><td>NorthAmerica.gdb</td>
+<td>Admin Attribute</td>
+<td>ADMIN_PLACE_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToMany</td>
+<td>AdminAttribute2Admin</td>
+</tr>
+<tr class="striped"><td align='right'>3</th><td>NorthAmerica.gdb</td>
+<td>Administrative Area</td>
+<td>ADMIN_PLACE_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>MapAdminArea2Admin</td>
+</tr>
+<tr><td align='right'>4</th><td>NorthAmerica.gdb</td>
+<td>Administrative Areas</td>
+<td>COUNTRY_ID</td>
+<td>Metadata Country</td>
+<td>COUNTRY_ID</td>
+<td>OneToOne</td>
+<td>Admin2MetaCountry</td>
+</tr>
+<tr class="striped"><td align='right'>5</th><td>NorthAmerica.gdb</td>
+<td>Administrative Names</td>
+<td>ADMIN_PLACE_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToMany</td>
+<td>AdminNames2Admin</td>
+</tr>
+<tr><td align='right'>6</th><td>NorthAmerica.gdb</td>
+<td>Administrative Names Transliteration</td>
+<td>NAME_ID</td>
+<td>Administrative Names</td>
+<td>NAME_ID</td>
+<td>OneToMany</td>
+<td>AdminZoneNameTrans2AdminNames</td>
+</tr>
+<tr class="striped"><td align='right'>7</th><td>NorthAmerica.gdb</td>
+<td>Aggregated Features</td>
+<td>AGGR_ID</td>
+<td>Aggregated Feature Component</td>
+<td>AGGR_ID</td>
+<td>OneToMany</td>
+<td>MapAggrFeat2MapAggrComp</td>
+</tr>
+<tr><td align='right'>8</th><td>NorthAmerica.gdb</td>
+<td>Area Names</td>
+<td>POLYGON_ID</td>
+<td>Administrative Area</td>
+<td>POLYGON_ID</td>
+<td>OneToMany</td>
+<td>MapAreaNames2MapAdminArea</td>
+</tr>
+<tr class="striped"><td align='right'>9</th><td>NorthAmerica.gdb</td>
+<td>Area Names</td>
+<td>POLYGON_ID</td>
+<td>Built-up Area</td>
+<td>POLYGON_ID</td>
+<td>OneToMany</td>
+<td>MapAreaNames2MapAdminBuiltupArea</td>
+</tr>
+<tr><td align='right'>10</th><td>NorthAmerica.gdb</td>
+<td>Area Names</td>
+<td>POLYGON_ID</td>
+<td>Facility Area</td>
+<td>POLYGON_ID</td>
+<td>OneToMany</td>
+<td>MapAreaNames2MapFacArea</td>
+</tr>
+<tr class="striped"><td align='right'>11</th><td>NorthAmerica.gdb</td>
+<td>Area Names</td>
+<td>POLYGON_ID</td>
+<td>Island Area</td>
+<td>POLYGON_ID</td>
+<td>OneToMany</td>
+<td>MapAreaNames2MapIslandArea</td>
+</tr>
+<tr><td align='right'>12</th><td>NorthAmerica.gdb</td>
+<td>Area Names</td>
+<td>POLYGON_ID</td>
+<td>Landuse Area</td>
+<td>POLYGON_ID</td>
+<td>OneToMany</td>
+<td>MapAreaNames2MapLanduseArea</td>
+</tr>
+<tr class="striped"><td align='right'>13</th><td>NorthAmerica.gdb</td>
+<td>Area Names</td>
+<td>POLYGON_ID</td>
+<td>Map Building Area</td>
+<td>POLYGON_ID</td>
+<td>OneToMany</td>
+<td>MapAreaNames2MapBldgArea</td>
+</tr>
+<tr><td align='right'>14</th><td>NorthAmerica.gdb</td>
+<td>Area Names</td>
+<td>POLYGON_ID</td>
+<td>Ocean Area</td>
+<td>POLYGON_ID</td>
+<td>OneToMany</td>
+<td>MapAreaNames2MapOceanArea</td>
+</tr>
+<tr class="striped"><td align='right'>15</th><td>NorthAmerica.gdb</td>
+<td>Area Names</td>
+<td>POLYGON_ID</td>
+<td>Water Area</td>
+<td>POLYGON_ID</td>
+<td>OneToMany</td>
+<td>MapAreaNames2MapWaterArea</td>
+</tr>
+<tr><td align='right'>16</th><td>NorthAmerica.gdb</td>
+<td>Blackspot</td>
+<td>CONDITION_ID</td>
+<td>Condition</td>
+<td>CONDITION_ID</td>
+<td>OneToOne</td>
+<td>CondBlackspot2Cond</td>
+</tr>
+<tr class="striped"><td align='right'>17</th><td>NorthAmerica.gdb</td>
+<td>Census</td>
+<td>ADMIN_PLACE_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>Census2Admin</td>
+</tr>
+<tr><td align='right'>18</th><td>NorthAmerica.gdb</td>
+<td>Chain</td>
+<td>CHAIN_ID</td>
+<td>POI Chain</td>
+<td>CHAIN_ID</td>
+<td>OneToMany</td>
+<td>Chain2POIChains</td>
+</tr>
+<tr class="striped"><td align='right'>19</th><td>NorthAmerica.gdb</td>
+<td>City Center POIs</td>
+<td>ADMIN_PLACE_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>CityPOI2Admin</td>
+</tr>
+<tr><td align='right'>20</th><td>NorthAmerica.gdb</td>
+<td>City Center POIs</td>
+<td>NAMED_PLACE_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>CityPOI2NamedPlace</td>
+</tr>
+<tr class="striped"><td align='right'>21</th><td>NorthAmerica.gdb</td>
+<td>City Center POIs</td>
+<td>POI_ID</td>
+<td>City POI Names</td>
+<td>POI_ID</td>
+<td>OneToMany</td>
+<td>CityPOI2CityPOINames</td>
+</tr>
+<tr><td align='right'>22</th><td>NorthAmerica.gdb</td>
+<td>City Center POIs</td>
+<td>POI_ID</td>
+<td>POI Attribute</td>
+<td>POI_ID</td>
+<td>OneToMany</td>
+<td>CityPOI2POIAttr</td>
+</tr>
+<tr class="striped"><td align='right'>23</th><td>NorthAmerica.gdb</td>
+<td>City Center POIs</td>
+<td>VANITY_CITY_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>CityPOI2VanityCity</td>
+</tr>
+<tr><td align='right'>24</th><td>NorthAmerica.gdb</td>
+<td>Complex Feature</td>
+<td>COMPLEX_FEATURE_ID</td>
+<td>Complex Feature Component</td>
+<td>COMPLEX_FEATURE_ID</td>
+<td>OneToMany</td>
+<td>ComplexFeat2ComplexFeatComp</td>
+</tr>
+<tr class="striped"><td align='right'>25</th><td>NorthAmerica.gdb</td>
+<td>Complex Feature Component</td>
+<td>COMPONENT_ID</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>OneToOne</td>
+<td>ComplexFeatComp2Link</td>
+</tr>
+<tr><td align='right'>26</th><td>NorthAmerica.gdb</td>
+<td>Condition</td>
+<td>ACCESS_ID</td>
+<td>Vehicle Access</td>
+<td>ACCESS_ID</td>
+<td>OneToOne</td>
+<td>Cond2VehicleAccess</td>
+</tr>
+<tr class="striped"><td align='right'>27</th><td>NorthAmerica.gdb</td>
+<td>Date Time</td>
+<td>CONDITION_ID</td>
+<td>Condition</td>
+<td>CONDITION_ID</td>
+<td>OneToMany</td>
+<td>CondDateTime2Cond</td>
+</tr>
+<tr><td align='right'>28</th><td>NorthAmerica.gdb</td>
+<td>Direction of Travel</td>
+<td>CONDITION_ID</td>
+<td>Condition</td>
+<td>CONDITION_ID</td>
+<td>OneToOne</td>
+<td>CondDirTravel2Cond</td>
+</tr>
+<tr class="striped"><td align='right'>29</th><td>NorthAmerica.gdb</td>
+<td>Distance Markers</td>
+<td>STREET_ADDRESS_ID</td>
+<td>Street Address</td>
+<td>STREET_ADDRESS_ID</td>
+<td>OneToOne</td>
+<td>DistMark2StreetAdd</td>
+</tr>
+<tr><td align='right'>30</th><td>NorthAmerica.gdb</td>
+<td>Driver Alert</td>
+<td>CONDITION_ID</td>
+<td>Condition</td>
+<td>CONDITION_ID</td>
+<td>OneToOne</td>
+<td>CondDriverAlert2Cond</td>
+</tr>
+<tr class="striped"><td align='right'>31</th><td>NorthAmerica.gdb</td>
+<td>Environmental Zone</td>
+<td>CONDITION_ID</td>
+<td>Condition</td>
+<td>CONDITION_ID</td>
+<td>OneToOne</td>
+<td>CondEnvZone2Cond</td>
+</tr>
+<tr><td align='right'>32</th><td>NorthAmerica.gdb</td>
+<td>Evacuation</td>
+<td>CONDITION_ID</td>
+<td>Condition</td>
+<td>CONDITION_ID</td>
+<td>OneToOne</td>
+<td>CondEvac2Cond</td>
+</tr>
+<tr class="striped"><td align='right'>33</th><td>NorthAmerica.gdb</td>
+<td>Feature Point</td>
+<td>FEATURE_POINT_ID</td>
+<td>Feature Point Guidance Association</td>
+<td>FEATURE_POINT_ID</td>
+<td>OneToMany</td>
+<td>FPoint2FPointGuidanceAsso</td>
+</tr>
+<tr><td align='right'>34</th><td>NorthAmerica.gdb</td>
+<td>Feature Point</td>
+<td>FEATURE_POINT_ID</td>
+<td>Feature Point Name</td>
+<td>FEATURE_POINT_ID</td>
+<td>OneToMany</td>
+<td>FPoint2FeaturePointName</td>
+</tr>
+<tr class="striped"><td align='right'>35</th><td>NorthAmerica.gdb</td>
+<td>Feature Point</td>
+<td>LINK_ID</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>OneToOne</td>
+<td>FPoint2Link</td>
+</tr>
+<tr><td align='right'>36</th><td>NorthAmerica.gdb</td>
+<td>Feature Point Guidance Association</td>
+<td>ASSOCIATION_ID</td>
+<td>Guidance Association</td>
+<td>ASSOCIATION_ID</td>
+<td>OneToOne</td>
+<td>FPointGuidanceAsso2GuidanceAsso</td>
+</tr>
+<tr class="striped"><td align='right'>37</th><td>NorthAmerica.gdb</td>
+<td>Gate</td>
+<td>CONDITION_ID</td>
+<td>Condition</td>
+<td>CONDITION_ID</td>
+<td>OneToOne</td>
+<td>CondGate2Cond</td>
+</tr>
+<tr><td align='right'>38</th><td>NorthAmerica.gdb</td>
+<td>Guidance Association</td>
+<td>LINK_ID</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>OneToOne</td>
+<td>GuidanceAsso2Link</td>
+</tr>
+<tr class="striped"><td align='right'>39</th><td>NorthAmerica.gdb</td>
+<td>Guidance Association</td>
+<td>POI_ID</td>
+<td>Point Of Interest</td>
+<td>POI_ID</td>
+<td>OneToOne</td>
+<td>GuidanceAsso2POI</td>
+</tr>
+<tr><td align='right'>40</th><td>NorthAmerica.gdb</td>
+<td>High Occupancy Vehicle</td>
+<td>CONDITION_ID</td>
+<td>Condition</td>
+<td>CONDITION_ID</td>
+<td>OneToOne</td>
+<td>CondHOV2Cond</td>
+</tr>
+<tr class="striped"><td align='right'>41</th><td>NorthAmerica.gdb</td>
+<td>Lane Navigable Strand</td>
+<td>CONDITION_ID</td>
+<td>Condition</td>
+<td>CONDITION_ID</td>
+<td>OneToMany</td>
+<td>LaneNavStrand2Cond</td>
+</tr>
+<tr><td align='right'>42</th><td>NorthAmerica.gdb</td>
+<td>Link</td>
+<td>ACCESS_ID</td>
+<td>Vehicle Access</td>
+<td>ACCESS_ID</td>
+<td>OneToOne</td>
+<td>Link2VehicleAccess</td>
+</tr>
+<tr class="striped"><td align='right'>43</th><td>NorthAmerica.gdb</td>
+<td>Link</td>
+<td>LEFT_ADMIN_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>Link2LeftAdmin</td>
+</tr>
+<tr><td align='right'>44</th><td>NorthAmerica.gdb</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>City Center POIs</td>
+<td>LINK_ID</td>
+<td>OneToMany</td>
+<td>Link2CityPOI</td>
+</tr>
+<tr class="striped"><td align='right'>45</th><td>NorthAmerica.gdb</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>Lane</td>
+<td>LINK_ID</td>
+<td>OneToMany</td>
+<td>Link2Lane</td>
+</tr>
+<tr><td align='right'>46</th><td>NorthAmerica.gdb</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>Link Attribute</td>
+<td>LINK_ID</td>
+<td>OneToOne</td>
+<td>Link2LinkAttr</td>
+</tr>
+<tr class="striped"><td align='right'>47</th><td>NorthAmerica.gdb</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>Link TMC</td>
+<td>LINK_ID</td>
+<td>OneToMany</td>
+<td>Link2LinkTMC</td>
+</tr>
+<tr><td align='right'>48</th><td>NorthAmerica.gdb</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>Link Zone</td>
+<td>LINK_ID</td>
+<td>OneToMany</td>
+<td>Link2LinkZone</td>
+</tr>
+<tr class="striped"><td align='right'>49</th><td>NorthAmerica.gdb</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>Navigable Strand</td>
+<td>LINK_ID</td>
+<td>OneToMany</td>
+<td>Link2NavStrand</td>
+</tr>
+<tr><td align='right'>50</th><td>NorthAmerica.gdb</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>Point Of Interest</td>
+<td>LINK_ID</td>
+<td>OneToMany</td>
+<td>Link2POI</td>
+</tr>
+<tr class="striped"><td align='right'>51</th><td>NorthAmerica.gdb</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>Z-Level</td>
+<td>LOWER_LINK_ID</td>
+<td>OneToOne</td>
+<td>Link2ZLvlCrossLower</td>
+</tr>
+<tr><td align='right'>52</th><td>NorthAmerica.gdb</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>Z-Level</td>
+<td>UPPER_LINK_ID</td>
+<td>OneToOne</td>
+<td>Link2ZLvlCrossUpper</td>
+</tr>
+<tr class="striped"><td align='right'>53</th><td>NorthAmerica.gdb</td>
+<td>Link</td>
+<td>RIGHT_ADMIN_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>Link2RightAdmin</td>
+</tr>
+<tr><td align='right'>54</th><td>NorthAmerica.gdb</td>
+<td>Link</td>
+<td>STATUS_ID</td>
+<td>Status</td>
+<td>STATUS_ID</td>
+<td>OneToOne</td>
+<td>Link2Status</td>
+</tr>
+<tr class="striped"><td align='right'>55</th><td>NorthAmerica.gdb</td>
+<td>Link Names</td>
+<td>CARTO_ID</td>
+<td>Linear Water Features</td>
+<td>CARTO_ID</td>
+<td>OneToMany</td>
+<td>MapLinkNames2MapWaterLink</td>
+</tr>
+<tr><td align='right'>56</th><td>NorthAmerica.gdb</td>
+<td>Link Names</td>
+<td>CARTO_ID</td>
+<td>Map Administrative Link</td>
+<td>CARTO_ID</td>
+<td>OneToMany</td>
+<td>MapLinkNames2MapAdminLink</td>
+</tr>
+<tr class="striped"><td align='right'>57</th><td>NorthAmerica.gdb</td>
+<td>Link Names</td>
+<td>CARTO_ID</td>
+<td>Railroad Features</td>
+<td>CARTO_ID</td>
+<td>OneToMany</td>
+<td>MapLinkNames2MapRRLink</td>
+</tr>
+<tr><td align='right'>58</th><td>NorthAmerica.gdb</td>
+<td>Link Zone</td>
+<td>ZONE_ID</td>
+<td>Zones</td>
+<td>ZONE_ID</td>
+<td>OneToMany</td>
+<td>LinkZone2Zone</td>
+</tr>
+<tr class="striped"><td align='right'>59</th><td>NorthAmerica.gdb</td>
+<td>Map Administrative Link</td>
+<td>ADMIN_PLACE_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>MapAdminLink2Admin</td>
+</tr>
+<tr><td align='right'>60</th><td>NorthAmerica.gdb</td>
+<td>Map Building Area</td>
+<td>POLYGON_ID</td>
+<td>Aggregated Feature Component</td>
+<td>COMPONENT_ID</td>
+<td>OneToOne</td>
+<td>MapBldgArea2MapAggrComponent</td>
+</tr>
+<tr class="striped"><td align='right'>61</th><td>NorthAmerica.gdb</td>
+<td>Map Building Area</td>
+<td>POLYGON_ID</td>
+<td>Map Building Area Feature</td>
+<td>POLYGON_ID</td>
+<td>OneToOne</td>
+<td>MapBldgArea2MapBldgAreaFeat</td>
+</tr>
+<tr><td align='right'>62</th><td>NorthAmerica.gdb</td>
+<td>Micro Point Address</td>
+<td>ARRIVAL_LINK_ID</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>OneToOne</td>
+<td>MicroPointAddress2Link</td>
+</tr>
+<tr class="striped"><td align='right'>63</th><td>NorthAmerica.gdb</td>
+<td>Micro Point Address</td>
+<td>POINT_ADDRESS_ID</td>
+<td>Point Address</td>
+<td>POINT_ADDRESS_ID</td>
+<td>OneToOne</td>
+<td>MicroPointAddress2PointAddress</td>
+</tr>
+<tr><td align='right'>64</th><td>NorthAmerica.gdb</td>
+<td>Name Transliteration</td>
+<td>NAME_ID</td>
+<td>Area Names</td>
+<td>NAME_ID</td>
+<td>OneToMany</td>
+<td>MapNameTrans2MapAreaNames</td>
+</tr>
+<tr class="striped"><td align='right'>65</th><td>NorthAmerica.gdb</td>
+<td>Name Transliteration</td>
+<td>NAME_ID</td>
+<td>Link Names</td>
+<td>NAME_ID</td>
+<td>OneToMany</td>
+<td>MapNameTrans2MapLinkNames</td>
+</tr>
+<tr><td align='right'>66</th><td>NorthAmerica.gdb</td>
+<td>Navigable Strand</td>
+<td>CONDITION_ID</td>
+<td>Condition</td>
+<td>CONDITION_ID</td>
+<td>OneToMany</td>
+<td>NavStrand2Cond</td>
+</tr>
+<tr class="striped"><td align='right'>67</th><td>NorthAmerica.gdb</td>
+<td>Point Address</td>
+<td>ARRIVAL_LINK_ID</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>OneToOne</td>
+<td>PointAddress2ArrivalLink</td>
+</tr>
+<tr><td align='right'>68</th><td>NorthAmerica.gdb</td>
+<td>Point Address</td>
+<td>LINK_ID</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>OneToOne</td>
+<td>PointAddress2Link</td>
+</tr>
+<tr class="striped"><td align='right'>69</th><td>NorthAmerica.gdb</td>
+<td>Point Address</td>
+<td>LINK_ID</td>
+<td>Street Address</td>
+<td>LINK_ID</td>
+<td>OneToMany</td>
+<td>PointAdd2StreetAdd</td>
+</tr>
+<tr><td align='right'>70</th><td>NorthAmerica.gdb</td>
+<td>Point Of Interest</td>
+<td>ADMIN_PLACE_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>POI2Admin</td>
+</tr>
+<tr class="striped"><td align='right'>71</th><td>NorthAmerica.gdb</td>
+<td>Point Of Interest</td>
+<td>POI_ID</td>
+<td>POI Associations</td>
+<td>POI_ID</td>
+<td>OneToOne</td>
+<td>POI2POIAssoc</td>
+</tr>
+<tr><td align='right'>72</th><td>NorthAmerica.gdb</td>
+<td>Point Of Interest</td>
+<td>POI_ID</td>
+<td>POI Attribute</td>
+<td>POI_ID</td>
+<td>OneToMany</td>
+<td>POI2POIAttr</td>
+</tr>
+<tr class="striped"><td align='right'>73</th><td>NorthAmerica.gdb</td>
+<td>Point Of Interest</td>
+<td>POI_ID</td>
+<td>POI Chain</td>
+<td>POI_ID</td>
+<td>OneToMany</td>
+<td>POI2POIChains</td>
+</tr>
+<tr><td align='right'>74</th><td>NorthAmerica.gdb</td>
+<td>Point Of Interest</td>
+<td>POI_ID</td>
+<td>POI Contact</td>
+<td>POI_ID</td>
+<td>OneToMany</td>
+<td>POI2POIContact</td>
+</tr>
+<tr class="striped"><td align='right'>75</th><td>NorthAmerica.gdb</td>
+<td>Point Of Interest</td>
+<td>POI_ID</td>
+<td>POI Cuisines</td>
+<td>POI_ID</td>
+<td>OneToOne</td>
+<td>POI2POICuisines</td>
+</tr>
+<tr><td align='right'>76</th><td>NorthAmerica.gdb</td>
+<td>Point Of Interest</td>
+<td>POI_ID</td>
+<td>POI Names</td>
+<td>POI_ID</td>
+<td>OneToMany</td>
+<td>POI2POINames</td>
+</tr>
+<tr class="striped"><td align='right'>77</th><td>NorthAmerica.gdb</td>
+<td>Point Of Interest</td>
+<td>VANITY_CITY_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>POI2VanityCity</td>
+</tr>
+<tr><td align='right'>78</th><td>NorthAmerica.gdb</td>
+<td>Signposts Streets</td>
+<td>SIGN_ID</td>
+<td>Signposts</td>
+<td>SIGN_ID</td>
+<td>OneToMany</td>
+<td>Signposts_Streets2Signposts</td>
+</tr>
+<tr class="striped"><td align='right'>79</th><td>NorthAmerica.gdb</td>
+<td>Speed Limit</td>
+<td>CONDITION_ID</td>
+<td>Condition</td>
+<td>CONDITION_ID</td>
+<td>OneToOne</td>
+<td>CondSpeed2Cond</td>
+</tr>
+<tr><td align='right'>80</th><td>NorthAmerica.gdb</td>
+<td>Street Address</td>
+<td>LINK_ID</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>OneToMany</td>
+<td>StreetAddress2Link</td>
+</tr>
+<tr class="striped"><td align='right'>81</th><td>NorthAmerica.gdb</td>
+<td>Street Address</td>
+<td>STREET_ADDRESS_ID</td>
+<td>City Center POIs</td>
+<td>STREET_ADDRESS_ID</td>
+<td>OneToOne</td>
+<td>StreetAddress2CityPOI</td>
+</tr>
+<tr><td align='right'>82</th><td>NorthAmerica.gdb</td>
+<td>Street Address</td>
+<td>STREET_ADDRESS_ID</td>
+<td>Point Of Interest</td>
+<td>STREET_ADDRESS_ID</td>
+<td>OneToOne</td>
+<td>StreetAddress2POI</td>
+</tr>
+<tr class="striped"><td align='right'>83</th><td>NorthAmerica.gdb</td>
+<td>Streets</td>
+<td>LINK_ID</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>OneToOne</td>
+<td>Streets2Link</td>
+</tr>
+<tr><td align='right'>84</th><td>NorthAmerica.gdb</td>
+<td>Streets</td>
+<td>LINK_ID</td>
+<td>Navigable Strand</td>
+<td>LINK_ID</td>
+<td>OneToMany</td>
+<td>Streets2NavStrand</td>
+</tr>
+<tr class="striped"><td align='right'>85</th><td>NorthAmerica.gdb</td>
+<td>Text</td>
+<td>CONDITION_ID</td>
+<td>Condition</td>
+<td>CONDITION_ID</td>
+<td>OneToMany</td>
+<td>CondText2Cond</td>
+</tr>
+<tr><td align='right'>86</th><td>NorthAmerica.gdb</td>
+<td>Toll</td>
+<td>CONDITION_ID</td>
+<td>Condition</td>
+<td>CONDITION_ID</td>
+<td>OneToOne</td>
+<td>CondToll2Cond</td>
+</tr>
+<tr class="striped"><td align='right'>87</th><td>NorthAmerica.gdb</td>
+<td>Transport</td>
+<td>CONDITION_ID</td>
+<td>Condition</td>
+<td>CONDITION_ID</td>
+<td>OneToOne</td>
+<td>CondTrans2Cond</td>
+</tr>
+<tr><td align='right'>88</th><td>NorthAmerica.gdb</td>
+<td>Zone Names</td>
+<td>NAME_ID</td>
+<td>Administrative Names Transliteration</td>
+<td>NAME_ID</td>
+<td>OneToMany</td>
+<td>ZoneNames2AdminZoneNameTrans</td>
+</tr>
+<tr class="striped"><td align='right'>89</th><td>NorthAmerica.gdb</td>
+<td>Zone Names</td>
+<td>ZONE_ID</td>
+<td>Zones</td>
+<td>ZONE_ID</td>
+<td>OneToMany</td>
+<td>ZoneNames2Zone</td>
+</tr>
+<tr><td align='right'>90</th><td>SouthAmerica.gdb</td>
+<td>Administrative Area</td>
+<td>ADMIN_PLACE_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>MapAdminArea2Admin</td>
+</tr>
+<tr class="striped"><td align='right'>91</th><td>SouthAmerica.gdb</td>
+<td>Administrative Areas</td>
+<td>COUNTRY_ID</td>
+<td>Metadata Country</td>
+<td>COUNTRY_ID</td>
+<td>OneToOne</td>
+<td>Admin2MetaCountry</td>
+</tr>
+<tr><td align='right'>92</th><td>SouthAmerica.gdb</td>
+<td>Administrative Names</td>
+<td>ADMIN_PLACE_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToMany</td>
+<td>AdminNames2Admin</td>
+</tr>
+<tr class="striped"><td align='right'>93</th><td>SouthAmerica.gdb</td>
+<td>Administrative Names Transliteration</td>
+<td>NAME_ID</td>
+<td>Administrative Names</td>
+<td>NAME_ID</td>
+<td>OneToMany</td>
+<td>AdminZoneNameTrans2AdminNames</td>
+</tr>
+<tr><td align='right'>94</th><td>SouthAmerica.gdb</td>
+<td>Aggregated Features</td>
+<td>AGGR_ID</td>
+<td>Aggregated Feature Component</td>
+<td>AGGR_ID</td>
+<td>OneToMany</td>
+<td>MapAggrFeat2MapAggrComp</td>
+</tr>
+<tr class="striped"><td align='right'>95</th><td>SouthAmerica.gdb</td>
+<td>Area Names</td>
+<td>POLYGON_ID</td>
+<td>Administrative Area</td>
+<td>POLYGON_ID</td>
+<td>OneToMany</td>
+<td>MapAreaNames2MapAdminArea</td>
+</tr>
+<tr><td align='right'>96</th><td>SouthAmerica.gdb</td>
+<td>Area Names</td>
+<td>POLYGON_ID</td>
+<td>Built-up Area</td>
+<td>POLYGON_ID</td>
+<td>OneToMany</td>
+<td>MapAreaNames2MapAdminBuiltupArea</td>
+</tr>
+<tr class="striped"><td align='right'>97</th><td>SouthAmerica.gdb</td>
+<td>Area Names</td>
+<td>POLYGON_ID</td>
+<td>Facility Area</td>
+<td>POLYGON_ID</td>
+<td>OneToMany</td>
+<td>MapAreaNames2MapFacArea</td>
+</tr>
+<tr><td align='right'>98</th><td>SouthAmerica.gdb</td>
+<td>Area Names</td>
+<td>POLYGON_ID</td>
+<td>Island Area</td>
+<td>POLYGON_ID</td>
+<td>OneToMany</td>
+<td>MapAreaNames2MapIslandArea</td>
+</tr>
+<tr class="striped"><td align='right'>99</th><td>SouthAmerica.gdb</td>
+<td>Area Names</td>
+<td>POLYGON_ID</td>
+<td>Landuse Area</td>
+<td>POLYGON_ID</td>
+<td>OneToMany</td>
+<td>MapAreaNames2MapLanduseArea</td>
+</tr>
+<tr><td align='right'>100</th><td>SouthAmerica.gdb</td>
+<td>Area Names</td>
+<td>POLYGON_ID</td>
+<td>Ocean Area</td>
+<td>POLYGON_ID</td>
+<td>OneToMany</td>
+<td>MapAreaNames2MapOceanArea</td>
+</tr>
+<tr class="striped"><td align='right'>101</th><td>SouthAmerica.gdb</td>
+<td>Area Names</td>
+<td>POLYGON_ID</td>
+<td>Water Area</td>
+<td>POLYGON_ID</td>
+<td>OneToMany</td>
+<td>MapAreaNames2MapWaterArea</td>
+</tr>
+<tr><td align='right'>102</th><td>SouthAmerica.gdb</td>
+<td>Chain</td>
+<td>CHAIN_ID</td>
+<td>POI Chain</td>
+<td>CHAIN_ID</td>
+<td>OneToMany</td>
+<td>Chain2POIChains</td>
+</tr>
+<tr class="striped"><td align='right'>103</th><td>SouthAmerica.gdb</td>
+<td>City Center POIs</td>
+<td>ADMIN_PLACE_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>CityPOI2Admin</td>
+</tr>
+<tr><td align='right'>104</th><td>SouthAmerica.gdb</td>
+<td>City Center POIs</td>
+<td>NAMED_PLACE_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>CityPOI2NamedPlace</td>
+</tr>
+<tr class="striped"><td align='right'>105</th><td>SouthAmerica.gdb</td>
+<td>City Center POIs</td>
+<td>POI_ID</td>
+<td>City POI Names</td>
+<td>POI_ID</td>
+<td>OneToMany</td>
+<td>CityPOI2CityPOINames</td>
+</tr>
+<tr><td align='right'>106</th><td>SouthAmerica.gdb</td>
+<td>City Center POIs</td>
+<td>POI_ID</td>
+<td>POI Attribute</td>
+<td>POI_ID</td>
+<td>OneToMany</td>
+<td>CityPOI2POIAttr</td>
+</tr>
+<tr class="striped"><td align='right'>107</th><td>SouthAmerica.gdb</td>
+<td>City Center POIs</td>
+<td>VANITY_CITY_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>CityPOI2VanityCity</td>
+</tr>
+<tr><td align='right'>108</th><td>SouthAmerica.gdb</td>
+<td>Complex Feature</td>
+<td>COMPLEX_FEATURE_ID</td>
+<td>Complex Feature Component</td>
+<td>COMPLEX_FEATURE_ID</td>
+<td>OneToMany</td>
+<td>ComplexFeat2ComplexFeatComp</td>
+</tr>
+<tr class="striped"><td align='right'>109</th><td>SouthAmerica.gdb</td>
+<td>Complex Feature</td>
+<td>COMPLEX_FEATURE_ID</td>
+<td>Complex Feature Names</td>
+<td>COMPLEX_FEATURE_ID</td>
+<td>OneToOne</td>
+<td>ComplexFeat2ComplexFeatNames</td>
+</tr>
+<tr><td align='right'>110</th><td>SouthAmerica.gdb</td>
+<td>Complex Feature Component</td>
+<td>COMPONENT_ID</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>OneToOne</td>
+<td>ComplexFeatComp2Link</td>
+</tr>
+<tr class="striped"><td align='right'>111</th><td>SouthAmerica.gdb</td>
+<td>Condition</td>
+<td>ACCESS_ID</td>
+<td>Vehicle Access</td>
+<td>ACCESS_ID</td>
+<td>OneToOne</td>
+<td>Cond2VehicleAccess</td>
+</tr>
+<tr><td align='right'>112</th><td>SouthAmerica.gdb</td>
+<td>Date Time</td>
+<td>CONDITION_ID</td>
+<td>Condition</td>
+<td>CONDITION_ID</td>
+<td>OneToMany</td>
+<td>CondDateTime2Cond</td>
+</tr>
+<tr class="striped"><td align='right'>113</th><td>SouthAmerica.gdb</td>
+<td>Feature Point Guidance Association</td>
+<td>ASSOCIATION_ID</td>
+<td>Guidance Association</td>
+<td>ASSOCIATION_ID</td>
+<td>OneToOne</td>
+<td>FPointGuidanceAsso2GuidanceAsso</td>
+</tr>
+<tr><td align='right'>114</th><td>SouthAmerica.gdb</td>
+<td>Gate</td>
+<td>CONDITION_ID</td>
+<td>Condition</td>
+<td>CONDITION_ID</td>
+<td>OneToOne</td>
+<td>CondGate2Cond</td>
+</tr>
+<tr class="striped"><td align='right'>115</th><td>SouthAmerica.gdb</td>
+<td>Guidance Association</td>
+<td>LINK_ID</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>OneToOne</td>
+<td>GuidanceAsso2Link</td>
+</tr>
+<tr><td align='right'>116</th><td>SouthAmerica.gdb</td>
+<td>Guidance Association</td>
+<td>POI_ID</td>
+<td>Point Of Interest</td>
+<td>POI_ID</td>
+<td>OneToOne</td>
+<td>GuidanceAsso2POI</td>
+</tr>
+<tr class="striped"><td align='right'>117</th><td>SouthAmerica.gdb</td>
+<td>Link</td>
+<td>ACCESS_ID</td>
+<td>Vehicle Access</td>
+<td>ACCESS_ID</td>
+<td>OneToOne</td>
+<td>Link2VehicleAccess</td>
+</tr>
+<tr><td align='right'>118</th><td>SouthAmerica.gdb</td>
+<td>Link</td>
+<td>LEFT_ADMIN_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>Link2LeftAdmin</td>
+</tr>
+<tr class="striped"><td align='right'>119</th><td>SouthAmerica.gdb</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>City Center POIs</td>
+<td>LINK_ID</td>
+<td>OneToMany</td>
+<td>Link2CityPOI</td>
+</tr>
+<tr><td align='right'>120</th><td>SouthAmerica.gdb</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>Link Attribute</td>
+<td>LINK_ID</td>
+<td>OneToOne</td>
+<td>Link2LinkAttr</td>
+</tr>
+<tr class="striped"><td align='right'>121</th><td>SouthAmerica.gdb</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>Navigable Strand</td>
+<td>LINK_ID</td>
+<td>OneToMany</td>
+<td>Link2NavStrand</td>
+</tr>
+<tr><td align='right'>122</th><td>SouthAmerica.gdb</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>Point Of Interest</td>
+<td>LINK_ID</td>
+<td>OneToMany</td>
+<td>Link2POI</td>
+</tr>
+<tr class="striped"><td align='right'>123</th><td>SouthAmerica.gdb</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>Z-Level</td>
+<td>LOWER_LINK_ID</td>
+<td>OneToOne</td>
+<td>Link2ZLvlCrossLower</td>
+</tr>
+<tr><td align='right'>124</th><td>SouthAmerica.gdb</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>Z-Level</td>
+<td>UPPER_LINK_ID</td>
+<td>OneToOne</td>
+<td>Link2ZLvlCrossUpper</td>
+</tr>
+<tr class="striped"><td align='right'>125</th><td>SouthAmerica.gdb</td>
+<td>Link</td>
+<td>RIGHT_ADMIN_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>Link2RightAdmin</td>
+</tr>
+<tr><td align='right'>126</th><td>SouthAmerica.gdb</td>
+<td>Link</td>
+<td>STATUS_ID</td>
+<td>Status</td>
+<td>STATUS_ID</td>
+<td>OneToOne</td>
+<td>Link2Status</td>
+</tr>
+<tr class="striped"><td align='right'>127</th><td>SouthAmerica.gdb</td>
+<td>Link Names</td>
+<td>CARTO_ID</td>
+<td>Linear Water Features</td>
+<td>CARTO_ID</td>
+<td>OneToMany</td>
+<td>MapLinkNames2MapWaterLink</td>
+</tr>
+<tr><td align='right'>128</th><td>SouthAmerica.gdb</td>
+<td>Link Names</td>
+<td>CARTO_ID</td>
+<td>Map Administrative Link</td>
+<td>CARTO_ID</td>
+<td>OneToMany</td>
+<td>MapLinkNames2MapAdminLink</td>
+</tr>
+<tr class="striped"><td align='right'>129</th><td>SouthAmerica.gdb</td>
+<td>Link Names</td>
+<td>CARTO_ID</td>
+<td>Railroad Features</td>
+<td>CARTO_ID</td>
+<td>OneToMany</td>
+<td>MapLinkNames2MapRRLink</td>
+</tr>
+<tr><td align='right'>130</th><td>SouthAmerica.gdb</td>
+<td>Map Administrative Link</td>
+<td>ADMIN_PLACE_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>MapAdminLink2Admin</td>
+</tr>
+<tr class="striped"><td align='right'>131</th><td>SouthAmerica.gdb</td>
+<td>Name Transliteration</td>
+<td>NAME_ID</td>
+<td>Area Names</td>
+<td>NAME_ID</td>
+<td>OneToMany</td>
+<td>MapNameTrans2MapAreaNames</td>
+</tr>
+<tr><td align='right'>132</th><td>SouthAmerica.gdb</td>
+<td>Name Transliteration</td>
+<td>NAME_ID</td>
+<td>Link Names</td>
+<td>NAME_ID</td>
+<td>OneToMany</td>
+<td>MapNameTrans2MapLinkNames</td>
+</tr>
+<tr class="striped"><td align='right'>133</th><td>SouthAmerica.gdb</td>
+<td>Navigable Strand</td>
+<td>CONDITION_ID</td>
+<td>Condition</td>
+<td>CONDITION_ID</td>
+<td>OneToMany</td>
+<td>NavStrand2Cond</td>
+</tr>
+<tr><td align='right'>134</th><td>SouthAmerica.gdb</td>
+<td>Point Address</td>
+<td>ARRIVAL_LINK_ID</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>OneToOne</td>
+<td>PointAddress2ArrivalLink</td>
+</tr>
+<tr class="striped"><td align='right'>135</th><td>SouthAmerica.gdb</td>
+<td>Point Address</td>
+<td>LINK_ID</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>OneToOne</td>
+<td>PointAddress2Link</td>
+</tr>
+<tr><td align='right'>136</th><td>SouthAmerica.gdb</td>
+<td>Point Address</td>
+<td>LINK_ID</td>
+<td>Street Address</td>
+<td>LINK_ID</td>
+<td>OneToMany</td>
+<td>PointAdd2StreetAdd</td>
+</tr>
+<tr class="striped"><td align='right'>137</th><td>SouthAmerica.gdb</td>
+<td>Point Of Interest</td>
+<td>ADMIN_PLACE_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>POI2Admin</td>
+</tr>
+<tr><td align='right'>138</th><td>SouthAmerica.gdb</td>
+<td>Point Of Interest</td>
+<td>POI_ID</td>
+<td>POI Attribute</td>
+<td>POI_ID</td>
+<td>OneToMany</td>
+<td>POI2POIAttr</td>
+</tr>
+<tr class="striped"><td align='right'>139</th><td>SouthAmerica.gdb</td>
+<td>Point Of Interest</td>
+<td>POI_ID</td>
+<td>POI Chain</td>
+<td>POI_ID</td>
+<td>OneToMany</td>
+<td>POI2POIChains</td>
+</tr>
+<tr><td align='right'>140</th><td>SouthAmerica.gdb</td>
+<td>Point Of Interest</td>
+<td>POI_ID</td>
+<td>POI Contact</td>
+<td>POI_ID</td>
+<td>OneToMany</td>
+<td>POI2POIContact</td>
+</tr>
+<tr class="striped"><td align='right'>141</th><td>SouthAmerica.gdb</td>
+<td>Point Of Interest</td>
+<td>POI_ID</td>
+<td>POI Cuisines</td>
+<td>POI_ID</td>
+<td>OneToOne</td>
+<td>POI2POICuisines</td>
+</tr>
+<tr><td align='right'>142</th><td>SouthAmerica.gdb</td>
+<td>Point Of Interest</td>
+<td>POI_ID</td>
+<td>POI Names</td>
+<td>POI_ID</td>
+<td>OneToMany</td>
+<td>POI2POINames</td>
+</tr>
+<tr class="striped"><td align='right'>143</th><td>SouthAmerica.gdb</td>
+<td>Point Of Interest</td>
+<td>VANITY_CITY_ID</td>
+<td>Administrative Areas</td>
+<td>ADMIN_PLACE_ID</td>
+<td>OneToOne</td>
+<td>POI2VanityCity</td>
+</tr>
+<tr><td align='right'>144</th><td>SouthAmerica.gdb</td>
+<td>Signposts Streets</td>
+<td>SIGN_ID</td>
+<td>Signposts</td>
+<td>SIGN_ID</td>
+<td>OneToMany</td>
+<td>Signposts_Streets2Signposts</td>
+</tr>
+<tr class="striped"><td align='right'>145</th><td>SouthAmerica.gdb</td>
+<td>Street Address</td>
+<td>LINK_ID</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>OneToMany</td>
+<td>StreetAddress2Link</td>
+</tr>
+<tr><td align='right'>146</th><td>SouthAmerica.gdb</td>
+<td>Street Address</td>
+<td>STREET_ADDRESS_ID</td>
+<td>City Center POIs</td>
+<td>STREET_ADDRESS_ID</td>
+<td>OneToOne</td>
+<td>StreetAddress2CityPOI</td>
+</tr>
+<tr class="striped"><td align='right'>147</th><td>SouthAmerica.gdb</td>
+<td>Street Address</td>
+<td>STREET_ADDRESS_ID</td>
+<td>Point Of Interest</td>
+<td>STREET_ADDRESS_ID</td>
+<td>OneToOne</td>
+<td>StreetAddress2POI</td>
+</tr>
+<tr><td align='right'>148</th><td>SouthAmerica.gdb</td>
+<td>Streets</td>
+<td>LINK_ID</td>
+<td>Link</td>
+<td>LINK_ID</td>
+<td>OneToOne</td>
+<td>Streets2Link</td>
+</tr>
+<tr class="striped"><td align='right'>149</th><td>SouthAmerica.gdb</td>
+<td>Streets</td>
+<td>LINK_ID</td>
+<td>Navigable Strand</td>
+<td>LINK_ID</td>
+<td>OneToMany</td>
+<td>Streets2NavStrand</td>
+</tr>
+<tr><td align='right'>150</th><td>SouthAmerica.gdb</td>
+<td>Zone Names</td>
+<td>NAME_ID</td>
+<td>Administrative Names Transliteration</td>
+<td>NAME_ID</td>
+<td>OneToMany</td>
+<td>ZoneNames2AdminZoneNameTrans</td>
+</tr>
+<tr class="striped"><td align='right'>151</th><td>SouthAmerica.gdb</td>
+<td>Zone Names</td>
+<td>ZONE_ID</td>
+<td>Zones</td>
+<td>ZONE_ID</td>
+<td>OneToMany</td>
+<td>ZoneNames2Zone</td>
+</tr>
+</table>
+
+
+
+
+<br/>
+  </body>
+</html>
+

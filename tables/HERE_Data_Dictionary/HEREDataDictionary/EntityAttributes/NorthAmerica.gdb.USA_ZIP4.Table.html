@@ -1,0 +1,269 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="../css/DataDictionary.css" type="text/css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  
+    <script src="../js/sorttable.js"></script>
+    
+    <title>
+    NA.USA_ZIP4 Attributes Html  
+   </title>
+  </head>
+
+  <body>
+   <table>
+    <tr>
+     <td rowspan="2"><img src="../images/orglogo.jpg" border="1" height="120"/> </td>     
+      <td>
+      <table>
+       <tr>
+        <td><h1>2020 Q3 File Geodatabase Plus Data Dictionary</h1></td>
+      </tr>
+     </table>
+     </td>
+    </tr>
+   </table>
+
+  <table>
+   <tr><td colspan="7" align="center"><h2>NA.USA_ZIP4 Attributes </h2></td></tr>
+   <tr>
+    <td width="50"></td> 
+    <td width="80"><a href="../general/DataDictionaryReadme.html">Read Me</a></td>  
+    <td width="90"><a href="../general/Overview.html">Overview</a></td>      
+    <td width="115"><a href="../general/Entities.Table.html">Layers/Tables</a></td>     
+    <td width="170"><a href="../general/FeatureFinder.html">Facility/Feature Finder</a></td> 
+    <td width="110"><a href="../general/Relationships.html">Relationships</a></td> 
+    <td width="100"><a href="../general/MapTypes.html">Map Types</a></td> 
+    <td width="110"><a href="../general/Admin_Geography_Levels.html">Admin Levels</a></td>
+    <td width="140"><a href="../general/DataDictionaryReference.html">Dictionary Reference</a></td>      
+   </tr>
+</table>
+<br />
+Click on Lookup Table column links to see domain values for an attribute. Click on column headings to sort.
+<br /><br />
+    <table class="sortable" border="1">
+     <thead>
+      <tr>
+        <th width="70" align="center"><u>No.</u></th>
+        <th><u>Name</u></th>
+        <th width="250"><u>Full Name</u></th>
+        <th width="400"><u>Description</u></th>
+        <th width="175"><u>Data Type</u></th>
+        <th width="175"><u>Max Chars</u></th>
+        <th><u>Lookup Table</u></th>
+      </tr>
+     </thead>  
+      <tr>
+        <td align="center">1</td>
+        <td align="center">OBJECTID</td>
+        <td>Object ID</td>
+        <td width="400">ESRI unique ID.</td>
+        <td align="center">OID</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">2</td>
+        <td align="center">SHAPE</td>
+        <td>Shape</td>
+        <td width="400">ESRI geometry object.</td>
+        <td align="center">Geometry</td>
+        <td align="right">0</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">3</td>
+        <td align="center">POST_MAIN</td>
+        <td>ZIP 5 Code</td>
+        <td width="400">The standard, 5-digit ZIP code for a point location. Multiple points may be associated with the same ZIP.</td>
+        <td align="center">String</td>
+        <td align="right">5</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">4</td>
+        <td align="center">POST_FULL</td>
+        <td>9-Digit Postal Code</td>
+        <td width="400">The full 9-digit ZIP code.</td>
+        <td align="center">String</td>
+        <td align="right">9</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">5</td>
+        <td align="center">ISO_CTRY</td>
+        <td>ISO Country Code</td>
+        <td width="400">Country-abbreviation.</td>
+        <td align="center">String</td>
+        <td align="right">3</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">6</td>
+        <td align="center">GEO_LEVEL</td>
+        <td>Geocode Level</td>
+        <td width="400">The geocode level of the centroid.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.USA_ZIP4.GEO_LEVEL.html'>USA_ZIP4.GEO_LEVEL</a></td>
+      </tr>
+      <tr>
+        <td align="center">7</td>
+        <td align="center">REC_TYPE</td>
+        <td>ZIP Plus-4 Type</td>
+        <td width="400">The type of ZIP+4 record.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.USA_ZIP4.REC_TYPE.html'>USA_ZIP4.REC_TYPE</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">8</td>
+        <td align="center">LINK_ID</td>
+        <td>Link ID</td>
+        <td width="400">Applies to Point layers only- nearest HERE Map street Link ID reference to the applicable point.</td>
+        <td align="center">String</td>
+        <td align="right">11</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">9</td>
+        <td align="center">PLUS4</td>
+        <td>ZIP Plus-4</td>
+        <td width="400">A unique, 4-digit extension to the ZIP. Each ZIP4, grouped with a ZIP, will be associated with only one point. However, a single point may be associated with multiple ZIP4 values. For example, a single office building will have multiple ZIP4 values.</td>
+        <td align="center">String</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">10</td>
+        <td align="center">CROUTE</td>
+        <td>Carrier Route</td>
+        <td width="400">The carrier route number for the ZIP+4 record.</td>
+        <td align="center">String</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">11</td>
+        <td align="center">CENSUS_BLK</td>
+        <td>Census Block Number</td>
+        <td width="400">The Census Block number for the ZIP+4 record.</td>
+        <td align="center">String</td>
+        <td align="right">15</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">12</td>
+        <td align="center">CENSUS_BGP</td>
+        <td>Census Block-Group Number</td>
+        <td width="400">The Census Block-Group number for the ZIP+4 record.</td>
+        <td align="center">String</td>
+        <td align="right">12</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">13</td>
+        <td align="center">CENSUS_TRC</td>
+        <td>Census Tract Number</td>
+        <td width="400">The Census Tract number for the ZIP+4 record.</td>
+        <td align="center">String</td>
+        <td align="right">11</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">14</td>
+        <td align="center">CONG_DIST</td>
+        <td>Congressional District Number</td>
+        <td width="400">Congressional District number for the ZIP+4 record.</td>
+        <td align="center">String</td>
+        <td align="right">2</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">15</td>
+        <td align="center">ADMIN4</td>
+        <td>City</td>
+        <td width="400">City.</td>
+        <td align="center">String</td>
+        <td align="right">35</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">16</td>
+        <td align="center">POST_CITY</td>
+        <td>Postal City</td>
+        <td width="400">The Postal City (or last-line city) for the ZIP+4 record.</td>
+        <td align="center">String</td>
+        <td align="right">28</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">17</td>
+        <td align="center">ALT_CITY</td>
+        <td>Alternate City</td>
+        <td width="400">Identifies the name of the commonly known built up area when applicable, associated with a point location. It is an alternative place name to what is found in HERE map.</td>
+        <td align="center">String</td>
+        <td align="right">50</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">18</td>
+        <td align="center">COUNTY</td>
+        <td>County</td>
+        <td width="400">USPS county name within which the applicable postal code falls.</td>
+        <td align="center">String</td>
+        <td align="right">35</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">19</td>
+        <td align="center">STATE</td>
+        <td>STATE</td>
+        <td width="400">State abbreviation for the state within which the applicable postal code falls.</td>
+        <td align="center">String</td>
+        <td align="right">2</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">20</td>
+        <td align="center">FIPSCO</td>
+        <td>County FIPS Code</td>
+        <td width="400">County FIPS code.</td>
+        <td align="center">String</td>
+        <td align="right">3</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">21</td>
+        <td align="center">FIPSST</td>
+        <td>State FIPS Code</td>
+        <td width="400">State FIPS code.</td>
+        <td align="center">String</td>
+        <td align="right">2</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">22</td>
+        <td align="center">GNIS</td>
+        <td>GNIS Feature ID</td>
+        <td width="400">US County GNIS feature ID from the official geographic names repository for the United States.</td>
+        <td align="center">String</td>
+        <td align="right">10</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">23</td>
+        <td align="center">H2O_CTRD</td>
+        <td>Water Body Point Type</td>
+        <td width="400">Identify points that are located in a water body 0.5 square km.</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center"><a href='../AttributeDomains/NA.USA_ZIP4.H2O_CTRD.html'>USA_ZIP4.H2O_CTRD</a></td>
+      </tr>
+
+    </table>
+
+<br/>
+  </body>
+</html>
+

@@ -1,0 +1,431 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="../css/DataDictionary.css" type="text/css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  
+    <script src="../js/sorttable.js"></script>
+    
+    <title>
+    NA.Signposts Attributes Html  
+   </title>
+  </head>
+
+  <body>
+   <table>
+    <tr>
+     <td rowspan="2"><img src="../images/orglogo.jpg" border="1" height="120"/> </td>     
+      <td>
+      <table>
+       <tr>
+        <td><h1>2020 Q3 File Geodatabase Plus Data Dictionary</h1></td>
+      </tr>
+     </table>
+     </td>
+    </tr>
+   </table>
+
+  <table>
+   <tr><td colspan="7" align="center"><h2>NA.Signposts Attributes </h2></td></tr>
+   <tr>
+    <td width="50"></td> 
+    <td width="80"><a href="../general/DataDictionaryReadme.html">Read Me</a></td>  
+    <td width="90"><a href="../general/Overview.html">Overview</a></td>      
+    <td width="115"><a href="../general/Entities.Table.html">Layers/Tables</a></td>     
+    <td width="170"><a href="../general/FeatureFinder.html">Facility/Feature Finder</a></td> 
+    <td width="110"><a href="../general/Relationships.html">Relationships</a></td> 
+    <td width="100"><a href="../general/MapTypes.html">Map Types</a></td> 
+    <td width="110"><a href="../general/Admin_Geography_Levels.html">Admin Levels</a></td>
+    <td width="140"><a href="../general/DataDictionaryReference.html">Dictionary Reference</a></td>      
+   </tr>
+</table>
+<br />
+Click on Lookup Table column links to see domain values for an attribute. Click on column headings to sort.
+<br /><br />
+    <table class="sortable" border="1">
+     <thead>
+      <tr>
+        <th width="70" align="center"><u>No.</u></th>
+        <th><u>Name</u></th>
+        <th width="250"><u>Full Name</u></th>
+        <th width="400"><u>Description</u></th>
+        <th width="175"><u>Data Type</u></th>
+        <th width="175"><u>Max Chars</u></th>
+        <th><u>Lookup Table</u></th>
+      </tr>
+     </thead>  
+      <tr>
+        <td align="center">1</td>
+        <td align="center">OBJECTID</td>
+        <td>Object ID</td>
+        <td width="400">ESRI unique ID.</td>
+        <td align="center">OID</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">2</td>
+        <td align="center">SHAPE</td>
+        <td>Shape</td>
+        <td width="400">ESRI geometry object.</td>
+        <td align="center">Geometry</td>
+        <td align="right">0</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">3</td>
+        <td align="center">EXITNAME</td>
+        <td>ExitName</td>
+        <td width="400">Exit Name is the Exit Number applicable to the Sign.</td>
+        <td align="center">String</td>
+        <td align="right">10</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">4</td>
+        <td align="center">BRANCH0</td>
+        <td>Branch 0</td>
+        <td width="400">Branch (0-6) are the names of the streets or highways at the end of a ramp (e.g., Main Street).</td>
+        <td align="center">String</td>
+        <td align="right">60</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">5</td>
+        <td align="center">BRANCH0DIR</td>
+        <td>Branch 0 Direction</td>
+        <td width="400">Branch (0-6) Direction are the official directions of Branches 0-6 (e.g., North, South, etc.).</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">6</td>
+        <td align="center">BRANCH0LNG</td>
+        <td>Branch 0 Language Code</td>
+        <td width="400">Branch (0-6) Language Code are the Language Codes applicable to Branches 0-6.</td>
+        <td align="center">String</td>
+        <td align="right">5</td>
+        <td align="center"><a href='../AttributeDomains/NA.Signposts.Branch0Lng.html'>Signposts.Branch0Lng</a></td>
+      </tr>
+      <tr>
+        <td align="center">7</td>
+        <td align="center">TOWARD0</td>
+        <td>Toward 0</td>
+        <td width="400">Toward (0-6) identifies the first through sixth destinations beyond where the ramp ends.</td>
+        <td align="center">String</td>
+        <td align="right">90</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">8</td>
+        <td align="center">TOWARD0LNG</td>
+        <td>Toward 0 Language Code</td>
+        <td width="400">Towa rd 0 - 6 Language is the Language of Toward 0 - 6.</td>
+        <td align="center">String</td>
+        <td align="right">5</td>
+        <td align="center"><a href='../AttributeDomains/NA.Signposts.Toward0Lng.html'>Signposts.Toward0Lng</a></td>
+      </tr>
+      <tr>
+        <td align="center">9</td>
+        <td align="center">BRANCH1</td>
+        <td>Branch 1</td>
+        <td width="400">Branch (0-6) are the names of the streets or highways at the end of a ramp (e.g., Main Street).</td>
+        <td align="center">String</td>
+        <td align="right">60</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">10</td>
+        <td align="center">BRANCH1DIR</td>
+        <td>Branch 1 Direction</td>
+        <td width="400">Branch (0-6) Direction are the official directions of Branches 0-6 (e.g., North, South, etc.).</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">11</td>
+        <td align="center">BRANCH1LNG</td>
+        <td>Branch 1 Language Code</td>
+        <td width="400">Branch (0-6) Language Code are the Language Codes applicable to Branches 0-6.</td>
+        <td align="center">String</td>
+        <td align="right">5</td>
+        <td align="center"><a href='../AttributeDomains/NA.Signposts.Branch1Lng.html'>Signposts.Branch1Lng</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">12</td>
+        <td align="center">TOWARD1</td>
+        <td>Toward 1</td>
+        <td width="400">Toward (0-6) identifies the first through sixth destinations beyond where the ramp ends.</td>
+        <td align="center">String</td>
+        <td align="right">90</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">13</td>
+        <td align="center">TOWARD1LNG</td>
+        <td>Toward 1 Language Code</td>
+        <td width="400">Toward 0 - 6 Language is the Language of Toward 0 - 6.</td>
+        <td align="center">String</td>
+        <td align="right">5</td>
+        <td align="center"><a href='../AttributeDomains/NA.Signposts.Toward1Lng.html'>Signposts.Toward1Lng</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">14</td>
+        <td align="center">BRANCH2</td>
+        <td>Branch 2</td>
+        <td width="400">Branch (0-6) are the names of the streets or highways at the end of a ramp (e.g., Main Street).</td>
+        <td align="center">String</td>
+        <td align="right">60</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">15</td>
+        <td align="center">BRANCH2DIR</td>
+        <td>Branch 2 Direction</td>
+        <td width="400">Branch (0-6) Direction are the official directions of Branches 0-6 (e.g., North, South, etc.).</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">16</td>
+        <td align="center">BRANCH2LNG</td>
+        <td>Branch 2 Language Code</td>
+        <td width="400">Branch (0-6) Language Code are the Language Codes applicable to Branches 0-6.</td>
+        <td align="center">String</td>
+        <td align="right">5</td>
+        <td align="center"><a href='../AttributeDomains/NA.Signposts.Branch2Lng.html'>Signposts.Branch2Lng</a></td>
+      </tr>
+      <tr>
+        <td align="center">17</td>
+        <td align="center">TOWARD2</td>
+        <td>Toward 2</td>
+        <td width="400">Toward (0-6) identifies the first through sixth destinations beyond where the ramp ends.</td>
+        <td align="center">String</td>
+        <td align="right">90</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">18</td>
+        <td align="center">TOWARD2LNG</td>
+        <td>Toward 2 Language Code</td>
+        <td width="400">Toward 0 - 6 Language is the Language of Toward 0 - 6.</td>
+        <td align="center">String</td>
+        <td align="right">5</td>
+        <td align="center"><a href='../AttributeDomains/NA.Signposts.Toward2Lng.html'>Signposts.Toward2Lng</a></td>
+      </tr>
+      <tr>
+        <td align="center">19</td>
+        <td align="center">BRANCH3</td>
+        <td>Branch 3</td>
+        <td width="400">Branch (0-6) are the names of the streets or highways at the end of a ramp (e.g., Main Street).</td>
+        <td align="center">String</td>
+        <td align="right">60</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">20</td>
+        <td align="center">BRANCH3DIR</td>
+        <td>Branch 3 Direction</td>
+        <td width="400">Branch (0-6) Direction are the official directions of Branches 0-6 (e.g., North, South, etc.).</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">21</td>
+        <td align="center">BRANCH3LNG</td>
+        <td>Branch 3 Language Code</td>
+        <td width="400">Branch (0-6) Language Code are the Language Codes applicable to Branches 0-6.</td>
+        <td align="center">String</td>
+        <td align="right">5</td>
+        <td align="center"><a href='../AttributeDomains/NA.Signposts.Branch3Lng.html'>Signposts.Branch3Lng</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">22</td>
+        <td align="center">TOWARD3</td>
+        <td>Toward 3</td>
+        <td width="400">Toward (0-6) identifies the first through sixth destinations beyond where the ramp ends.</td>
+        <td align="center">String</td>
+        <td align="right">90</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">23</td>
+        <td align="center">TOWARD3LNG</td>
+        <td>Toward 3 Language Code</td>
+        <td width="400">Toward 0 - 6 Language is the Language of Toward 0 - 6.</td>
+        <td align="center">String</td>
+        <td align="right">5</td>
+        <td align="center"><a href='../AttributeDomains/NA.Signposts.Toward3Lng.html'>Signposts.Toward3Lng</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">24</td>
+        <td align="center">BRANCH4</td>
+        <td>Branch 4</td>
+        <td width="400">Branch (0-6) are the names of the streets or highways at the end of a ramp (e.g., Main Street).</td>
+        <td align="center">String</td>
+        <td align="right">60</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">25</td>
+        <td align="center">BRANCH4DIR</td>
+        <td>Branch 4 Direction</td>
+        <td width="400">Branch (0-6) Direction are the official directions of Branches 0-6 (e.g., North, South, etc.).</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">26</td>
+        <td align="center">BRANCH4LNG</td>
+        <td>Branch 4 Language Code</td>
+        <td width="400">Branch (0-6) Language Code are the Language Codes applicable to Branches 0-6.</td>
+        <td align="center">String</td>
+        <td align="right">5</td>
+        <td align="center"><a href='../AttributeDomains/NA.Signposts.Branch4Lng.html'>Signposts.Branch4Lng</a></td>
+      </tr>
+      <tr>
+        <td align="center">27</td>
+        <td align="center">TOWARD4</td>
+        <td>Toward 4</td>
+        <td width="400">Toward (0-6) identifies the first through sixth destinations beyond where the ramp ends.</td>
+        <td align="center">String</td>
+        <td align="right">90</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">28</td>
+        <td align="center">TOWARD4LNG</td>
+        <td>Toward 4 Language Code</td>
+        <td width="400">Toward 0 - 6 Language is the Language of Toward 0 - 6.</td>
+        <td align="center">String</td>
+        <td align="right">5</td>
+        <td align="center"><a href='../AttributeDomains/NA.Signposts.Toward4Lng.html'>Signposts.Toward4Lng</a></td>
+      </tr>
+      <tr>
+        <td align="center">29</td>
+        <td align="center">BRANCH5</td>
+        <td>Branch 5</td>
+        <td width="400">Branch (0-6) are the names of the streets or highways at the end of a ramp (e.g., Main Street).</td>
+        <td align="center">String</td>
+        <td align="right">60</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">30</td>
+        <td align="center">BRANCH5DIR</td>
+        <td>Branch 5 Direction</td>
+        <td width="400">Branch (0-6) Direction are the official directions of Branches 0-6 (e.g., North, South, etc.).</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">31</td>
+        <td align="center">BRANCH5LNG</td>
+        <td>Branch 5 Language Code</td>
+        <td width="400">Branch (0-6) Language Code are the Language Codes applicable to Branches 0-6.</td>
+        <td align="center">String</td>
+        <td align="right">5</td>
+        <td align="center"><a href='../AttributeDomains/NA.Signposts.Branch5Lng.html'>Signposts.Branch5Lng</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">32</td>
+        <td align="center">TOWARD5</td>
+        <td>Toward 5</td>
+        <td width="400">Toward (0-6) identifies the first through sixth destinations beyond where the ramp ends.</td>
+        <td align="center">String</td>
+        <td align="right">90</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">33</td>
+        <td align="center">TOWARD5LNG</td>
+        <td>Toward 5 Language Code</td>
+        <td width="400">Toward 0 - 6 Language is the Language of Toward 0 - 6.</td>
+        <td align="center">String</td>
+        <td align="right">5</td>
+        <td align="center"><a href='../AttributeDomains/NA.Signposts.Toward5Lng.html'>Signposts.Toward5Lng</a></td>
+      </tr>
+      <tr class="striped">
+        <td align="center">34</td>
+        <td align="center">BRANCH6</td>
+        <td>Branch 6</td>
+        <td width="400">Branch (0-6) are the names of the streets or highways at the end of a ramp (e.g., Main Street).</td>
+        <td align="center">String</td>
+        <td align="right">60</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">35</td>
+        <td align="center">BRANCH6DIR</td>
+        <td>Branch 6 Direction</td>
+        <td width="400">Branch (0-6) Direction are the official directions of Branches 0-6 (e.g., North, South, etc.).</td>
+        <td align="center">String</td>
+        <td align="right">1</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">36</td>
+        <td align="center">BRANCH6LNG</td>
+        <td>Branch 6 Language Code</td>
+        <td width="400">Branch (0-6) Language Code are the Language Codes applicable to Branches 0-6.</td>
+        <td align="center">String</td>
+        <td align="right">5</td>
+        <td align="center"><a href='../AttributeDomains/NA.Signposts.Branch6Lng.html'>Signposts.Branch6Lng</a></td>
+      </tr>
+      <tr>
+        <td align="center">37</td>
+        <td align="center">TOWARD6</td>
+        <td>Toward 6</td>
+        <td width="400">Toward (0-6) identifies the first through sixth destinations beyond where the ramp ends.</td>
+        <td align="center">String</td>
+        <td align="right">90</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">38</td>
+        <td align="center">TOWARD6LNG</td>
+        <td>Toward 6 Language Code</td>
+        <td width="400">Toward 0 - 6 Language is the Language of Toward 0 - 6.</td>
+        <td align="center">String</td>
+        <td align="right">5</td>
+        <td align="center"><a href='../AttributeDomains/NA.Signposts.Toward6Lng.html'>Signposts.Toward6Lng</a></td>
+      </tr>
+      <tr>
+        <td align="center">39</td>
+        <td align="center">SIGN_ID</td>
+        <td>Sign ID</td>
+        <td width="400">Sign ID is the HERE Sign ID corresponding to the Signposts entry.</td>
+        <td align="center">Integer</td>
+        <td align="right">4</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr class="striped">
+        <td align="center">40</td>
+        <td align="center">DESTNUMBER</td>
+        <td>Destination Number</td>
+        <td width="400">Destination Number indicates the Destination Number (offset æ1Æ) which together with the HERE Sign ID marks a unique signpost for a driving path defined in the Signposts Streets layer.</td>
+        <td align="center">SmallInteger</td>
+        <td align="right">2</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">41</td>
+        <td align="center">SHAPE_LENGTH</td>
+        <td>Shape Length</td>
+        <td width="400">ESRI automatically caluclated shape length, not to be used for actual linear calculations, e.g., square miles.</td>
+        <td align="center">Double</td>
+        <td align="right">8</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+
+    </table>
+
+<br/>
+  </body>
+</html>
+
