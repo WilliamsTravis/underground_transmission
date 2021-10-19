@@ -13,10 +13,12 @@ import geopandas as gpd
 import pandas as pd
 
 from tqdm import tqdm
+from revruns import rr
 
 
 TABLE_DIR = "../tables/HERE_Data_Dictionary/"
 SAMPLE = "../data/state_hwys/wy_east_west.gpkg"
+SHEET = "../tables/HERE_Data_Dictionary/HEREDataDictionaryNA_Only/data_profiles/FGDB_Plus_Data_Profiles_2020_Q3_NA_Only.xlsx"
 
 
 class Attributes:
@@ -27,13 +29,21 @@ class Attributes:
         self.sample = gpd.read_file(SAMPLE)
         self.table_dir = os.path.abspath(TABLE_DIR)
 
+    def __repr__(self):
+        """Return representation string."""
+        attrs = []
+        for key, value in self.__dict__.items():
+            attrs.append(f"{key}={value}")
+        attrs = ", ".join(attrs)
+        return f"<Attributes object: {attrs}>"
+
     @property
     def fields(self):
         """Return list of available fields in the HERE Streets datasets."""
         return [f.upper() for f in self.sample.columns]
 
     @property
-    def files(self):
+    def html_files(self):
         """Return all html files in table dir."""
         pattern = os.path.join(self.table_dir, "**/*Table.html")
         files = glob(pattern, recursive=True)[:-1]
@@ -44,7 +54,7 @@ class Attributes:
     def table(self):
         """Build a master table of all attributes."""
         tables = []
-        for file in self.files:
+        for file in self.html_files:
             table_list = pd.read_html(file)
             for table in table_list:
                 if "Name" in table.columns:
@@ -53,6 +63,16 @@ class Attributes:
         del table["No."]
         table = table.drop_duplicates()
         table = table.sort_values("Name").reset_index(drop=True)
+
+        tables = []
+        for file in self.xml_files:
+            table = pd.read_xml(file)
+            tables.append(table)
+        table = pd.concat(tables)
+        del table["No."]
+        table = table.drop_duplicates()
+        table = table.sort_values("Name").reset_index(drop=True)
+
         return table
 
     @property
@@ -73,4 +93,3 @@ class Attributes:
 
 if __name__ == "__main__":
     self = Attributes()
-
