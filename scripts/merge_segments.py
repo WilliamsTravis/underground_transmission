@@ -29,7 +29,7 @@ pd.options.mode.chained_assignment = None
 warnings.simplefilter("ignore", ShapelyDeprecationWarning)
 
 
-HOME = "/shared-projects/rev/projects/lpo/fy21/underground_transmission"
+HOME = os.path.abspath("..")
 DSTDIR = os.path.join(HOME, "data/shapefiles/routes/merged")
 KEEPERS = ["FromNodeID", "ToNodeID", "StreetNameBase", "UATYP10",
            "NAME10", "DirOnSign", "LANE_CATEGORY", "geometry"]
@@ -37,16 +37,16 @@ COLUMNS = ["from_id", "to_id", "street", "urban_cat", "urban_name",
            "direction", "lane_count", "geometry"]
 
 
-def cplot(*shapes, title=None, **kwargs):
+def cplot(*shapes, title=None, zoom=False, **kwargs):
     """Plot a collection of shapes."""
     df = gpd.GeoDataFrame({"geometry": shapes,
                            "value": [i for i in range(len(shapes))]})
     ax = df.plot("value", categorical=True, legend=True, **kwargs)
 
-    xmin, ymin, xmax, ymax = shapes[0].bounds
-
-    ax.set_xlim(xmin, xmax)
-    ax.set_ylim(ymin, ymax)
+    if zoom:
+        xmin, ymin, xmax, ymax = shapes[0].bounds
+        ax.set_xlim(xmin, xmax)
+        ax.set_ylim(ymin, ymax)
     if title:
         ax.set_title(title)
 
@@ -76,7 +76,7 @@ class Buffer:
         cdf = cdf[cdf["op_geometry"].length > 0]
 
         # Build initial buffers
-        cdf["geometry"] = cdf.progress_apply(self.buffer_segment, axis=1)
+        cdf = self._par_apply(cdf, self.buffer_segment)
 
         # Unpack the MultiPolygons
         entries = []
@@ -170,10 +170,15 @@ class Buffer:
             if g2s:
                 for g2 in g2s:
                     if g1.intersects(g2):
-                        g1 = self.cut(g1, g2)
+                        try:
+                            g1 = self.cut(g1, g2)
+                        except:
+                            print("Cut Problem Found.")
+                            pass
             entry["geometry"] = g1
             entries.append(entry)
         df = gpd.GeoDataFrame(entries)
+        df.crs = ndf.crs
         return df
 
     def cut(self, g1, g2):
@@ -215,19 +220,30 @@ class Merger(Buffer):
     def attributes(self):
         """Merge attributes."""
 
-    def connect_nodes(self, df):
-        """Find nodes and reorder data frame."""
-        def connect(entry):
-            """Find connections for single geometry."""
-            geom = entry["geometry"]
-            ogeoms = df["geometry"][df["sid"] != entry["sid"]]
-            tids = [i for i, g in enumerate(ogeoms) if g.intersects(geom)]
-            entry["connections"] = tids
-            return entry
-
-        # For each entry 
+    def connect_lines(self, df):
+        """Connect lines that touch and share attribute values."""
+        crs = df.crs
+        df = df.sort_values("from_id").reset_index(drop=True)
         df["sid"] = df.index
-        df = self._par_apply(df, connect, n=100)
+        rows = []
+        skippers = []
+        for i, row in tqdm(df.iterrows(), total=df.shape[0]):
+            sid = row["sid"]
+            if sid not in skippers:
+                to = row["to_id"]
+                if to in df["from_id"].values:
+                    row2 = df[df["from_id"] == to].iloc[0]
+                    q1 = row["street"] == row2["street"]
+                    q2 = row["direction"] == row2["direction"]
+                    q3 = row["urban_name"] == row2["urban_name"]
+                    q4 = row["lane_count"] == row2["lane_count"]
+                    if q1 and q2 and q3 and q4:
+                        g = ops.unary_union([row["geometry"], row2["geometry"]])
+                        row["geometry"] = g
+                        skippers.append(row2["sid"])
+                rows.append(row)
+        df = gpd.GeoDataFrame(rows)
+        df.crs = crs
         return df
 
     @property
@@ -250,7 +266,7 @@ class Merger(Buffer):
             vector2 = GeometryCollection(vector2s)
             ddf["op_geometry"] = self._par_apply(
                 ddf["geometry"],
-                self.get_opposite,
+                self._get_opposite,
                 vector2=vector2
             )
             ddfs.append(ddf)
@@ -266,7 +282,7 @@ class Merger(Buffer):
 
         # Remove major metropolitan urban centers and directionless segments
         tdf = tdf[tdf["direction"] != ""]
-        tdf = tdf[tdf["urban_cat"] != "U"]
+        # tdf = tdf[tdf["urban_cat"] != "U"]
         tdf.loc[pd.isnull(tdf["urban_name"]), "urban_name"] = "none"
         tdf = tdf[~tdf["geometry"].isnull()]
 
@@ -280,22 +296,25 @@ class Merger(Buffer):
         tdf.loc[tdf["street"] == "Interstate 20", "street"] = "I-20"
 
         # Group by street name and merge geometries
-        groupers = ["street", "direction", "lane_count", "urban_name"]
+        groupers = ["street", "direction", "lane_count", "urban_name",
+                    "urban_cat"]
         grouper = tdf.groupby(groupers)["geometry"]
         segments = grouper.apply(self._merge)
         gdf = gpd.GeoDataFrame(segments, crs="epsg:4326")
+        gdf = gdf.reset_index()
         gdf = gdf.to_crs("epsg:5070")
 
         # Unpack multipolygons
-        sdf = self.unpack_multilines(gdf)
+        # sdf = self.unpack_multilines(gdf)
 
         # Identify intersecting nodes
-        ndf = self.connect_nodes(sdf)
+        # ndf = self.connect_nodes(sdf)
 
         # Regroup
 
         # Get the opposite road segments
-        odf = self.get_opposites(ndf)
+        odf = self.get_opposite(gdf)
+        gdf = gdf[gdf["urban_cat"] != "U"]
 
         return odf
 
@@ -406,6 +425,6 @@ class Merger(Buffer):
 
 
 if __name__ == "__main__":
-    self = Merger(HOME, DSTDIR)
-    # merger = Merger(HOME, DSTDIR)
-    # merger.main()
+    # self = Merger(HOME, DSTDIR)
+    merger = Merger(HOME, DSTDIR)
+    merger.main()
