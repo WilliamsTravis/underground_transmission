@@ -163,6 +163,7 @@ class Buffer:
         """Create a joint between connecting buffer segments."""
         ndf = cdf.copy()
         entries = []
+        issues = []
         for i, entry in tqdm(ndf.iterrows(), total=ndf.shape[0]):
             g1 = entry["geometry"]
             g2s = ndf["geometry"][ndf["sid"] != entry["sid"]].values
@@ -173,7 +174,7 @@ class Buffer:
                         try:
                             g1 = self.cut(g1, g2)
                         except:
-                            print("Cut Problem Found.")
+                            issues.append(entry["sid"])
                             pass
             entry["geometry"] = g1
             entries.append(entry)
@@ -199,7 +200,6 @@ class Buffer:
             final = [g for g in dg if g.area == max_area][0]
             return final
         except:
-            print("Problem Found")
             return g1
 
 
@@ -417,11 +417,12 @@ class Merger(Buffer):
     def main(self):
         """Create final merged route table."""
         for direction, file in self.files.items():
-            print(f"Merging {file}...")
-            df = self.merge(file)
-            df = self.buffer_dataset(df)
             dst = self.build_path(direction)
-            df.to_file(dst, "GPKG")
+            if not os.path.exists(dst):
+                print(f"Merging {file}...")
+                df = self.merge(file)
+                df = self.buffer_dataset(df)
+                df.to_file(dst, "GPKG")
 
 
 if __name__ == "__main__":
