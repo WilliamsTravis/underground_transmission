@@ -2,22 +2,18 @@
 
 Buffer and characterize files in characterizations folder.
 
-
 Production Notes:
-    - Fix the buffer side issue.
     - How to handle parcels? They're split into individual state files, but
       it wouldn't make sense to add an entire new summary for each state...
       as long as the HERE streets portion is split on states, we can infer the
       state and read in the correct state parcel table.
-    - When buffering segments separately, there should be an overlap, handle
-      this somehow.
 
 
 Created on Wed Oct 27 09:54:39 2021
 
 @author: twillia2
 """
-import ast
+import json
 import os
 import warnings
 
@@ -27,19 +23,14 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 import pathos.multiprocessing as mp
-import shapely
 
-from pandarallel import pandarallel
+from merge_segments import cplot
 from rioxarray import rioxarray as xrio
-from shapely.geometry import box, LineString, MultiPolygon, MultiLineString
-from shapely.geometry import Polygon
-from shapely.geometry.collection import GeometryCollection
-from shapely.ops import cascaded_union
+from shapely.geometry import box
 from shapely.errors import ShapelyDeprecationWarning
 from tqdm import tqdm
 
 tqdm.pandas()
-pandarallel.initialize(progress_bar=True)
 warnings.simplefilter("ignore", ShapelyDeprecationWarning)
 
 
@@ -52,55 +43,16 @@ FTYPES = {
     "shp": "vector",
     "tif": "raster"
 }
-PROBLEM_SIDS = {
-    "ns": [9, 22, 24]
-}
 
 
-
-def find_dirs(line):
-    """Find the direction of coordinates in a line."""
-    dx = np.diff(line.xy[0])
-    dy = np.diff(line.xy[1])
-    xdir = int(sum(dx) / abs(sum(dx)))
-    ydir = int(sum(dy) / sum(abs(dy)))
-    return xdir, ydir
-
-
-def vbuffer(line, direction="N", sign="+", distance=65, width=4):
-    """Visualize the different buffering options we're using."""
-    offset = (width / 2) + (distance / 2)
-
-    if sign == "-":
-        offset = -offset
-
-    sline = line.parallel_offset(offset)
-    road = line.buffer((width / 2))
-    buff = sline.buffer(distance / 2)
-
-    full = line.buffer(distance)
-    phalf = line.buffer(distance, single_sided=True)
-    nhalf = line.buffer(-distance, single_sided=True)
-
-    # Final buffer?
-    half = line.buffer((distance / 2), single_sided=True)
-    gdata = {
-        "geometry": [
-            line, 
-            sline,
-            road,
-            buff
-        ],
-        "value": [
-            "center line",
-            "offset line",
-            "road",
-            "buffer"
-        ]
-    }
-
-    gdf = gpd.GeoDataFrame(gdata)
-    ax = gdf.plot(column="value", categorical=True, legend=True)
+def find_row(df, i_entry):
+    """Little function to find the first intersecting right-of-way."""
+    summarizer = Summarize()
+    dset = i_entry["Data Name"]
+    for row in df["geometry"]:
+        out = summarizer._subset(row, dset)
+        if out.shape[0] > 0:
+            return row
 
 
 class Summarize:
@@ -111,6 +63,7 @@ class Summarize:
         self.home = home
         self.inputs_path = inputs_path
         self.data_dir = os.path.join(home, "data/characterizations")
+        self.crs = "epsg:5070"  # Hardcoding for time
 
     def get_dtype(self, dset):
         """Return the type (raster or vector) of a dataset."""
@@ -129,7 +82,9 @@ class Summarize:
 
     def get_key(self, dset, method):
         """Return a key for a given data set and summarization method."""
-        dkey = "_".join(dset.lower().split())
+        dkey = dset.replace("-", "").replace("(", "").replace(")", "")
+        dkey = dkey.replace(",", " ")
+        dkey = "_".join(dkey.lower().split())
         mkey = method.__name__
         return f"{dkey}_{mkey}"
 
@@ -152,21 +107,43 @@ class Summarize:
     @property
     def inputs(self):
         """Return input data sheet."""
+        # Read in raw data sheet
         df = pd.read_excel(self.inputs_path, sheet_name="data")
         df = df[["Data Name", "Formatted Path", "Summarization", "Category",
                  "Fields", "Legend"]]
-        df["Fields"][pd.isnull(df["Fields"])] = "NA"
-        df["Legend"][pd.isnull(df["Legend"])] = "NA"
-        df = df.dropna().reset_index(drop=True)
+
+        # Keep only entries with necessary elements
+        nonans = ["Formatted Path", "Summarization"]
+        df = df.dropna(subset=nonans).reset_index(drop=True)
+        cmethods = df["Summarization"].str.contains("class")
+        nofields = df["Fields"].isnull()
+        df = df[~(cmethods & nofields)]
+
+        # Not ready for folders or geodatabases yet
+        exts = df["Formatted Path"].apply(lambda x: os.path.splitext(x)[-1]) # Temporary
+        df = df[exts != '']
+
+        # Trim any whitespace in the file paths
+        df["Formatted Path"] = df["Formatted Path"].apply(lambda x: x.strip())
+
         return df
 
-    def raster_mean(self, df, dset):
+    def parcel_file(self, s_entry):
+        """Find the right parcel state."""
+        state = s_entry["state"]
+        state = state.lower()
+        state = "_".join(state.split())
+        pattern = f"/projects/rev/data/conus/lightbox/*{state}*5070.gpkg"
+        file = glob(pattern)[0]
+        return file
+
+    def raster_mean(self, sdf, dset):
         """Return the mean value of a raster."""
 
-    def raster_area(self, df, dset):
+    def raster_area(self, sdf, dset):
         """Return the area of pixels for a raster value."""
 
-    def raster_area_by_class(self, df, dset):
+    def raster_area_by_class(self, sdf, dset):
         """Return the area of pixels for each raster value."""
         # Get geometric info
         entry = self.get_entry(dset)
@@ -177,32 +154,20 @@ class Summarize:
 
         # Build a dictionary of areas
         areas = {}
-        values = np.unique(df)
+        values = np.unique(sdf)
         for value in values:
-            varray = df[df == value]
+            varray = sdf[sdf == value]
             count = varray.shape[0]
             area = count * (res ** 2)
             areas[value] = area
 
         return areas
 
-    def raster_count(self, df, dset):
+    def raster_count(self, sdf, dset):
         """Return the count of pixels for a raster value."""
 
-    def raster_count_by_class(self, df, dset):
+    def raster_count_by_class(self, sdf, dset):
         """Return the count of pixels for each raster value."""
-
-    def vector_area_by_class(self, df, dset):
-        """Return the area for each vector value."""
-
-    def vector_count_by_class(self, df, dset):
-        """Return the count for each vector value."""
-
-    def vector_count_of_intersections(self, df, dset):
-        """Return the count of line, vector intersections."""
-
-    def vector_count_of_polygons(self, df, dset):
-        """Return the number of polygons in a vector."""
 
     def summarize(self, row, dset):
         """Summarize a given dataset within a given extent.
@@ -220,22 +185,52 @@ class Summarize:
             A dictionary with a key representing the dataset and method used,
             and the values representing the results of that method.
         """
-        # Retrieve subsetted dataset
-        df = self._subset(row, dset)
-
-        # Retrieve the appropriate methods for this dataset
+        # Retrieve subsetted dataset and appropriate methods for this dataset
+        sdf = self._subset(row, dset)
         methods = self.get_methods(dset)
 
         # For each method retrieve a value and catalog it
         summary = {}
         for method in methods:
-            out = method(self, df, dset)
-
-            # We need a key for the method and dataset
+            out = method(self, sdf, dset)
             key = self.get_key(dset, method)
             summary[key] = out
 
         return summary
+
+    def vector_area_by_class(self, sdf, dset):
+        """Return the area for each vector value."""
+        values = {}        
+        field = self.get_entry(dset)["Fields"]
+        for sub_field in sdf[field].unique():
+            fdf = sdf[sdf[field] == sub_field]
+            area = fdf["geometry"].area.sum()
+            values[sub_field] = area
+        return values
+
+    def vector_count_by_class(self, sdf, dset):
+        """Return the count for each vector value."""
+        values = {}        
+        field = self.get_entry(dset)["Fields"]
+        for sub_field in sdf[field].unique():
+            fdf = sdf[sdf[field] == sub_field]
+            count = fdf["geometry"].shape[0]
+            values[sub_field] = count
+        return values
+
+    def vector_count_of_intersections(self, sdf, dset):
+        """Return the count of line, vector intersections."""
+        return sdf.shape[0]  # Same as below
+
+    def vector_count_of_polygons(self, sdf, dset):
+        """Return the number of polygons in a vector."""
+        return sdf.shape[0]
+
+    def vector_mean(self, sdf, dset):
+        """Return the average value of a set of vectors."""
+        field = self.get_entry(dset)["Fields"]
+        sdf["area"] = sdf["geometry"].area
+        return np.average(sdf[field], weights=sdf["area"])
 
     def _subset(self, row, dset):
         """Return a subset of the dataset within the row."""
@@ -246,20 +241,17 @@ class Summarize:
         # Let's not break the whole thing if the path is missing
         if os.path.exists(fpath):
 
-            # Create a bounding box in which to read in dataset
-            bbox = row.bounds
-    
             # Use the appropriate method for reading in dataset
             if self.get_dtype(dset) == "vector":
-                df = gpd.read_file(fpath, bbox=bbox)
-    
+                sdf = self._subset_vector(row, dset)
+
             elif self.get_dtype(dset) == "raster":
-                df = self._subset_raster(row, dset)
+                sdf = self._subset_raster(row, dset)
         else:
             print(f"{fpath} does not exist, skipping...")
-            df = None
+            sdf = None
 
-        return df
+        return sdf
 
     def _subset_raster(self, row, dset):
         """Subset a raster with an row geometry."""
@@ -274,8 +266,64 @@ class Summarize:
             df = ds.rio.clip_box(*bbox)
             df = df.rio.clip(row)
 
-        return df.data[0]
+        return df.data[0]  # 0 because this is the 1st layer in a 3D set
 
+    def _subset_vector(self, row, dset):
+        """Subset a raster with a row geometry."""
+        # Unpath dataset information
+        fpath = self.get_entry(dset)["Formatted Path"]
+        field = self.get_entry(dset)["Fields"]
+
+        # Create a bounding box in which to read in dataset
+        bbox = row.bounds
+
+        # Subset for bounding box and then clip by row
+        sdf = gpd.read_file(fpath, bbox=bbox)  # is usecols not a thing? This might not be the best way to do this
+        if field is not np.nan:
+            sdf = sdf[["geometry", field]]
+        else:
+            sdf = sdf[["geometry"]]
+        
+        sdf = gpd.clip(sdf, row)
+
+        return sdf
+
+    def _read_vector(self, fpath, cols=None, bbox=None):
+        """Read in specific columns and bounding box of a geodataframe."""
+        # Get the columns to skip
+        all_cols = self._cols(fpath)
+        if cols:
+            skip_cols = list(set(all_cols) - set(cols))
+        else:
+            skip_cols = list(set(all_cols) - set(all_cols[0]))
+
+        # Read in with or without bounding box
+        if bbox:
+            gdf = gpd.read_file(fpath, ignore_fields=skip_cols, driver="GeoJSON")
+
+    def _cols(self, fpath):
+        """Return columns of shapefile.
+        
+        Currently only works for geojsons, but keeping in case we need it.
+        """
+        # Open raw data file (quickest way)
+        r = open(fpath).readlines()
+
+        # Dig an entry out of this mess, anyone after 4 or 5 will do
+        entry = r[10]
+
+        # Start at properties, end at the next closing bracket
+        start = '"properties": '
+        end = "}"
+        entry = entry[entry.index(start) + len(start): ]
+        entry = entry[:entry.index(end) + len(end)]
+
+        # This is a json string, load that in as an object
+        entry = json.loads(entry)
+        cols = list(entry.keys())
+
+        return cols
+    
 
 class Characterize(Summarize):
     """Methods for characterizing ROW around line segments."""
@@ -293,100 +341,23 @@ class Characterize(Summarize):
 
     def characterize(self, direction):
         """Buffer and characterize one route table."""
-        # Buffer or retrieve buffer
-        print(f"Characterizing {direction}...")
-        subdir = os.path.join(self.home, "data/shapefiles/routes/buffered")
-        tpath = f"{direction}_interstates_buffered.gpkg"
-        os.makedirs(subdir, exist_ok=True)
-        buffered_dst = os.path.join(subdir, tpath)
-        if os.path.exists(buffered_dst):
-            df = gpd.read_file(buffered_dst)
-        else:
-            df = self.buffer_dataset(direction)
-            df.to_file(buffered_dst, "GPKG")
+        # Read in buffers
+        print(f"Characterizing {direction} interstates...")
+        fpath = self.routes[direction]
+        df = gpd.read_file(fpath)
+        crs = df.crs
 
         # Loop through each segment - running serially for now
-        output = []
-        for s_i, s_entry in tqdm(df.iterrows(), total=df.shape[0]):
-        
-            # Extract the buffer
-            row = s_entry["geometry"]
-        
-            # Loop through characterization dataset inputs
-            for i_i, i_entry in self.inputs.iterrows():
-        
-                # Get dataset, check if we're using parcels
-                dset = i_entry["Data Name"]
-                if "parcels" in dset:
-                    self.find_parcel()
-        
-                # Get summary for all characterization methods
-                summaries = self.summarize(row, dset)
-        
-                # The summaries can be a value or dict of values
-                for method, summary in summaries.items():
-                    if not isinstance(summary, dict):
-                        s_entry[method] = summary
-                    else:
-                        for cat, value in summary.items():
-                            # This key is important here (no units column)
-                            cat = self.get_cat_lookup(cat, dset)
-                            if self.get_units(cat):
-                                cat = cat + " " + self.get_units(cat)
-                            if cat:
-                                s_entry[cat] = value
-                    output.append(s_entry)
-        
-        df = pd.concat(output)
+        output = df.progress_apply(self._characterize, axis=1)
+        # output = self._par_apply(df, self._characterize)
+        df = gpd.GeoDataFrame(output, crs=crs)
+
         return df
 
     def clip_bbox(self, vector1, vector2):
         """Clip a vector within the bounding box of another."""
         bbox = box(*vector1.bounds)
-        # bbox = bbox.buffer(100)
         return bbox.intersection(vector2)
-
-    def find_side(self, line, other_line, direction):
-        """Determine the correct side to offset a road."""
-        # The direction of coordinates sets the offset side
-        xdir, ydir = find_dirs(line)
-
-        # This might change based on the direction, and we might need ydir
-        # if direction == "N":
-
-        if xdir == -1 and ydir == 1:
-            side = "right"
-        else:
-            side = "left"
-
-        return side
-
-    def fix_line(self, line):
-        """Make everyline flow in the same direction."""
-        xdir, _ = find_dirs(line)
-        if xdir == -1:
-            xy = line.xy
-            xs = xy[0][::-1]
-            ys = xy[1][::-1]
-            coords = [[xs[i], ys[i]] for i in range(len(xs))]
-            line = LineString(coords)
-        return line
-
-    def get_cat_lookup(self, value, dset):
-        """Get lookup values for categorical datasets."""
-        entry = self.get_entry(dset)
-        legend = ast.literal_eval(entry["Legend"])
-        if legend:
-            if value in legend:    
-                cat = legend[value]
-                cat = cat.lower().replace(",", "").replace("/", " ")
-                cat = "_".join(cat.split())
-            else:
-                cat = None
-        else:
-            cat = value
-
-        return cat
 
     def get_units(self, cat):
         """Get the units associated with a method."""
@@ -401,12 +372,38 @@ class Characterize(Summarize):
         """Return the two route vector paths."""
         tdir = os.path.join(
             self.home,
-            "data/shapefiles/routes/merged"
+            "data/shapefiles/routes/buffered"
         )
         ew = glob(os.path.join(tdir, "*ew*gpkg"))[0]
         ns = glob(os.path.join(tdir, "*ns*gpkg"))[0]
         routes = {"ew": ew, "ns": ns}
         return routes
+
+    def _characterize(self, s_entry):
+        # Single entry characterization
+        row = s_entry["geometry"]
+        for i_i, i_entry in self.inputs.iterrows():
+            # Get dataset, check if we're using parcels
+            dset = i_entry["Data Name"]
+
+            if "parcels" in dset:
+                break
+                summaries = self.parcel_distance(row, s_entry)
+
+            # Get summary for all characterization methods
+            try:
+                summaries = self.summarize(row, dset)
+            except:
+                road = s_entry["street"]
+                sid = s_entry["sid"]
+                print("Exception on interstate {road}, sid {sid}, dataset {dset}")
+                raise
+
+            # The summaries can be a value or dict of values
+            for col, summary in summaries.items():
+                s_entry[col] = summary
+
+        return s_entry
 
     def _cross_check(self, shape, lines):
         # Could we clip the lines within the shape and check if they cross?
@@ -440,7 +437,13 @@ class Characterize(Summarize):
         # Read route geodatabase with route 'segments'
         for direction, _ in self.routes.items():
             df = self.characterize(direction)
+            fpath = f"{direction}_characterizations.gpkg"
+            dst = os.path.join(self.data_dir, "final", fpath)
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            df.to_file(dst, "GPKG")
 
 
 if __name__ == "__main__":
     self = Characterize(HOME)
+    # characterizer = Characterize(HOME)
+    # characterizer.main()

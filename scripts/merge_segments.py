@@ -1,5 +1,8 @@
 """Process route tables.
 
+NOTE:
+    Write line datasets to file for anthony's parcel.
+
 Join straight line sigments and attributes to reduce data size.
 
 Created on Wed Oct 27 09:50:41 2021
@@ -31,9 +34,9 @@ warnings.simplefilter("ignore", ShapelyDeprecationWarning)
 
 HOME = os.path.abspath("..")
 DSTDIR = os.path.join(HOME, "data/shapefiles/routes/merged")
-KEEPERS = ["FromNodeID", "ToNodeID", "StreetNameBase", "UATYP10",
-           "NAME10", "DirOnSign", "LANE_CATEGORY", "geometry"]
-COLUMNS = ["from_id", "to_id", "street", "urban_cat", "urban_name",
+KEEPERS = ["FromNodeID", "ToNodeID", "StreetNameBase", "ORDER1_NAME", 
+           "UATYP10", "NAME10", "DirOnSign", "LANE_CATEGORY", "geometry"]
+COLUMNS = ["from_id", "to_id", "street", "state", "urban_cat", "urban_name",
            "direction", "lane_count", "geometry"]
 
 
@@ -282,7 +285,6 @@ class Merger(Buffer):
 
         # Remove major metropolitan urban centers and directionless segments
         tdf = tdf[tdf["direction"] != ""]
-        # tdf = tdf[tdf["urban_cat"] != "U"]
         tdf.loc[pd.isnull(tdf["urban_name"]), "urban_name"] = "none"
         tdf = tdf[~tdf["geometry"].isnull()]
 
@@ -296,7 +298,7 @@ class Merger(Buffer):
         tdf.loc[tdf["street"] == "Interstate 20", "street"] = "I-20"
 
         # Group by street name and merge geometries
-        groupers = ["street", "direction", "lane_count", "urban_name",
+        groupers = ["street", "direction", "state", "lane_count", "urban_name",
                     "urban_cat"]
         grouper = tdf.groupby(groupers)["geometry"]
         segments = grouper.apply(self._merge)
@@ -426,6 +428,6 @@ class Merger(Buffer):
 
 
 if __name__ == "__main__":
-    # self = Merger(HOME, DSTDIR)
+    self = Merger(HOME, DSTDIR)
     merger = Merger(HOME, DSTDIR)
     merger.main()
