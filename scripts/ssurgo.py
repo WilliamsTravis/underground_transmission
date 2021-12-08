@@ -21,21 +21,15 @@ Created on Mon Oct 11 09:46:55 2021
 import os
 import time
 import warnings
-import zipfile
 
 from functools import lru_cache
-from glob import glob
 
-import dask_geopandas as dgpd
 import fiona
 import geopandas as gpd
 import pandas as pd
-import requests
 import us
-import wget
 
 from pandarallel import pandarallel as pdl
-from requests import HTTPError
 from tqdm import tqdm
 
 pdl.initialize(progress_bar=True, use_memory_fs=True)
@@ -58,84 +52,6 @@ def diff(g1, g2):
     except:
         raise
     return g
-
-
-class Download:
-    """Methods for downloading the gSSURGO files. Will require BOX SDK."""
-
-    def __init__(self, targetdir, state="CO"):
-        """Initialize Download object."""
-        self.state = state
-        self.targetdir = os.path.expanduser(os.path.abspath(targetdir))
-        os.makedirs(self.targetdir, exist_ok=True)
-
-    @property
-    @lru_cache()
-    def state_url(self):
-        """Return the url for just one state gSSURGO file."""
-        def noparser(content, target="gSSURGO by State"):
-            """It's too much to parse a java script enabled html request."""
-            idx = content.index(target)
-            lcontent = content[idx::-1]
-            rcontent = lcontent[:lcontent.index(':"di"')][::-1]
-            fid = rcontent[:rcontent.index(",")]
-            return fid
-
-        # Find the state gssurgo page id
-        with requests.get(GSSURGO) as r:
-            content = r.text
-            fid = noparser(content, target="gSSURGO by State")
-
-        # Find the specific state file id
-        target = f"gSSURGO_{self.state}.zip"
-        sfid = None
-        for page in [1, 2, 3]:
-            url = os.path.join(GSSURGO, f"folder/{fid}?page={page}")
-            try:
-                with requests.get(url) as r:
-                    content = r.text
-                    sfid = noparser(content, target=target)
-            except ValueError:
-                pass
-
-        if not sfid:
-            raise ValueError(f"Could not find a file for {self.state}")
-
-        # Build the url
-        url = os.path.join(GSSURGO, f"file/{sfid}")
-
-        return url
-
-    def download(self, url):
-        """Piece together needed request address and download."""
-        with requests.get(url) as r:
-            content = r.content.decode()
-        apihost = self._unpack_address(content, pattern="apiHost")
-        apikey = self._unpack_address(content, pattern="accountHost")
-        dlurl = self._unpack_address(content, "Download")
-
-    def _unpack_adress(self, content, pattern):
-        """Find the address associated with a pattern."""
-        address = content[content.index(pattern)- 25:]
-        address = address.replace(pattern + '":"', "")
-        address = address[:address.index('","')]
-        address = address.replace("\\", "")
-        return address
-
-    def get(self):
-        """Get the SSURGO dataset."""
-        # Get just one state if provided
-        url = self.state_url
-        dst = os.path.join(self.targetdir, f"gSSURGO_{self.state}.zip")
-        if not os.path.exists(dst):
-            try:
-                wget.download(url, dst)
-            except:
-                raise HTTPError(f"{URL} could not be found, perhaps the "
-                                "dataset has been updated. Try updating "
-                                "the URL constant in this script.")
-            with zipfile.ZipFile(dst, "r") as zf:
-                zf.extractall(path=self.targetdir)
 
 
 class NATSGO():
@@ -363,16 +279,28 @@ class SSURGO():
         shape = shape.rename({"MUKEY": "mukey"}, axis=1)
         return shape
 
+    @lru_cache()
+    def subtable(self, name):
+        """Return the chorizon text file as a table."""
+        df = gpd.read_file(self.gdb_path, layer=name)
+        del df["geometry"]
+        return df
+
     @property
     @lru_cache()
     def table(self):
         """Return the components table."""
-        table = pd.merge(self.chorizon, self.component, on="cokey")
-        table = pd.merge(table, self.muaggatt, on="mukey")
-        table = pd.merge(table, self.chaashto, on="chkey")
-        table["mukey"] = table["mukey"].astype(str)
-        return table
+        chorizon = self.subtable("chorizon")
+        component = self.subtable("component")
+        muaggatt = self.subtable("muaggatt")
+        chaashto = self.subtable("chaashto")
 
+        table = pd.merge(chorizon, component, on="cokey")
+        table = pd.merge(table, muaggatt, on="mukey")
+        table = pd.merge(table, chaashto, on="chkey")
+        table["mukey"] = table["mukey"].astype(str)
+    
+        return table
 
 
 class Soil:
@@ -446,6 +374,11 @@ class Soil:
 if __name__ == "__main__":
     variable = "brockdepmin"
     targetdir = os.path.join(HOME, "data/ssurgo")
-    state = "CONUS"
-    soil = Soil(targetdir, variable)
-    soil.main()
+    state = "CO"
+    natsgo = NATSGO(targetdir, state)
+    ssurgo = SSURGO(targetdir, state)
+    self = NATSGO(targetdir, state)
+    # dst = "../data/ssurgo/processed/brockdepmin_conus.gpkg"
+    # df = conus.build(variable)
+    # df.to_file(dst, "GPKG")
+    # soil.main()
