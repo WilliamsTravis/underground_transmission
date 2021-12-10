@@ -23,15 +23,17 @@ import time
 import warnings
 
 from functools import lru_cache
-
+from glob import glob
 import fiona
 import geopandas as gpd
+import gdalmethods as gm
 import pandas as pd
 import us
 
 from pandarallel import pandarallel as pdl
 from tqdm import tqdm
 
+pd.set_option("max_columns", 500)
 pdl.initialize(progress_bar=True, use_memory_fs=True)
 tqdm.pandas()
 warnings.filterwarnings("ignore")
@@ -54,8 +56,14 @@ def diff(g1, g2):
     return g
 
 
-class NATSGO():
-    """Methods for formatting the gSSURGO dataset to return vectors."""
+def tile_mukeys(path, folder, n, ncpu):
+    ncpu = os.cpu_count()
+    files = gm.gdalmethods.tile_raster(path, folder, n, ncpu)
+    return files
+
+
+class NATSGO_STATE():
+    """Methods for formatting the gNATSGO dataset to return vectors."""
 
     def __init__(self, targetdir, state):
         """Initialize NATSGO object."""
@@ -76,7 +84,123 @@ class NATSGO():
         table = self.table.copy()
 
         # Let's keep the horizon information
-        keepers = ["lkey", "hzname", "hzdept_r", "hzdepb_r"]
+        keepers = ["mukey", "lkey", "hzname", "hzdept_r", "hzdepb_r"]
+        if variable not in keepers:
+            table = table[keepers + [variable]]
+        else:
+            table = table[keepers]
+
+        # Only keep the entries with values for our target variable
+        table = table[table[variable].notna()]
+
+        # Additionally, this may be horizon independent
+        grouper = table.groupby("lkey", as_index=False)[variable]  # This is wrong
+        table["nvar"] = grouper.transform(pd.Series.nunique)
+        if table["nvar"].max() == 1:
+            table = table[["lkey", variable]].drop_duplicates()
+
+        # Merge with our US shapefile
+        shape = self.shape
+        df = pd.merge(shape, table, on="lkey")
+        df = df[["geometry", variable]].drop_duplicates()
+
+        return df
+
+    @property
+    def gdb_path(self):
+        """Unpack needed elements within a state file geodatabase."""
+        rfpath = "gnatsgo/gNATSGO_CONUS.gdb"
+        return os.path.join(self.targetdir, rfpath)
+
+
+    @property
+    @lru_cache()
+    def layers(self):
+        """Return a list of available variables."""
+        layers = list(fiona.listlayers(self.gdb_path))
+        layers.sort()
+        return layers
+
+    @property
+    @lru_cache()
+    def shape(self):
+        """Return the original geodatabase just for CONUS."""
+        path = self.gdb_path
+        shape = gpd.read_file(path, layer="SAPOLYGON")
+        shape = shape.to_crs("epsg:5070")
+        shape["state"] = self.state
+        shape = shape.rename({"LKEY": "lkey"}, axis=1)
+        return shape
+
+    @property
+    @lru_cache()
+    def shape_ssurgo(self):
+        """Return the original geodatabase just for CONUS."""
+        ssurgo = SSURGO(self.targetdir, self.state)
+        shape = ssurgo.shape
+        return shape
+
+    @lru_cache()
+    def subtable(self, name):
+        """Return the chorizon text file as a table."""
+        df = gpd.read_file(self.gdb_path, layer=name)
+        del df["geometry"]
+        return df
+
+    @property
+    @lru_cache()
+    def table(self):
+        """Return the components table."""
+        # In NATSGO we have overlapping map units
+        laoverlap = self.subtable("laoverlap")
+        muaoverlap = self.subtable("muaoverlap")
+
+        # Get sub tables
+        chorizon = self.subtable("chorizon")
+        component = self.subtable("component")
+        muaggatt = self.subtable("muaggatt")
+        # chaashto = self.subtable("chaashto")
+
+        # Merge subtables
+        table = pd.merge(chorizon, component, on="cokey")
+        table = pd.merge(table, muaggatt, on="mukey")
+        # table = pd.merge(table, chaashto, on="chkey")
+
+        # Now overlap with the coarser NATSGO map units
+        table = pd.merge(table, muaoverlap, on="mukey", how="left")
+        table = pd.merge(table, laoverlap, on="lareaovkey", how="left")
+
+        # Stringify the keys
+        table["mukey"] = table["mukey"].astype(str)
+        table["lkey"] = table["lkey"].astype(str)
+
+        return table
+
+
+
+
+class NATSGO():
+    """Methods for formatting the gNATSGO dataset to return vectors."""
+
+    def __init__(self, targetdir):
+        """Initialize NATSGO object."""
+        self.targetdir = os.path.expanduser(os.path.abspath(targetdir))
+
+    def __repr__(self):
+        """Return representation string."""
+        attrs = []
+        for key, value in self.__dict__.items():
+            attrs.append(f"{key}={value}")
+        attrs = ", ".join(attrs)
+        return f"<NATSGO object: {attrs}>"
+
+    def build(self, variable):
+        """Build a useable dataset out of NATSGO."""
+        # Get the component table (may need to add tables for certain keys)
+        table = self.table.copy()
+
+        # Let's keep the horizon information
+        keepers = ["mukey", "lkey", "hzname", "hzdept_r", "hzdepb_r"]
         if variable not in keepers:
             table = table[keepers + [variable]]
         else:
@@ -94,8 +218,6 @@ class NATSGO():
         # Merge with our US shapefile
         shape = self.shape
         df = pd.merge(shape, table, on="lkey")
-
-        # Reduce
         df = df[["geometry", variable]].drop_duplicates()
 
         return df
@@ -103,7 +225,7 @@ class NATSGO():
     @property
     def gdb_path(self):
         """Unpack needed elements within a state file geodatabase."""
-        rfpath = f"gnatsgo/gNATSGO_{self.state}.gdb"
+        rfpath = "gnatsgo/gNATSGO_CONUS.gdb"
         return os.path.join(self.targetdir, rfpath)
 
 
@@ -137,28 +259,28 @@ class NATSGO():
     @lru_cache()
     def table(self):
         """Return the components table."""
-        # In NATSGO we have overlapping map units
-        laoverlap = self.subtable("laoverlap")
-        muaoverlap = self.subtable("muaoverlap")
+        # Let's not do this twice
+        tpath = os.path.join(
+            self.targetdir,
+            "data/ssurgo/ssurgo_mukey_lookup.csv"
+        )
 
         # Get sub tables
-        chorizon = self.subtable("chorizon")
-        component = self.subtable("component")
-        muaggatt = self.subtable("muaggatt")
-        chaashto = self.subtable("chaashto")
+        table = self.subtable("muaggatt")
+        # chorizon = self.subtable("chorizon")
+        # component = self.subtable("component")
+        # chaashto = self.subtable("chaashto")
 
         # Merge subtables
-        table = pd.merge(chorizon, component, on="cokey")
-        table = pd.merge(table, muaggatt, on="mukey")
-        table = pd.merge(table, chaashto, on="chkey")
+        # table = pd.merge(chorizon, component, on="cokey")
+        # table = pd.merge(table, muaggatt, on="mukey")
+        # table = pd.merge(table, chaashto, on="chkey")
 
         # Now overlap with the coarser NATSGO map units
-        table = pd.merge(table, muaoverlap, on="mukey", how="left")
-        table = pd.merge(table, laoverlap, on="lareaovkey", how="left")
+        # table = pd.merge(table, muaoverlap, on="mukey", how="left")
 
         # Stringify the keys
-        table["mukey"] = table["mukey"].astype(str)
-        table["lkey"] = table["lkey"].astype(str)
+        # table["mukey"] = table["mukey"].astype(str)
 
         return table
 
@@ -375,9 +497,9 @@ if __name__ == "__main__":
     variable = "brockdepmin"
     targetdir = os.path.join(HOME, "data/ssurgo")
     state = "CO"
-    natsgo = NATSGO(targetdir, state)
+    natsgo = NATSGO(targetdir)
     ssurgo = SSURGO(targetdir, state)
-    self = NATSGO(targetdir, state)
+    self = NATSGO(targetdir)
     # dst = "../data/ssurgo/processed/brockdepmin_conus.gpkg"
     # df = conus.build(variable)
     # df.to_file(dst, "GPKG")

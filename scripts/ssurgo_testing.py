@@ -7,58 +7,68 @@ Created on Tue Dec  7 12:47:19 2021
 """
 import os
 
-import numba as nb
+import multiprocessing as mp
 import numpy as np
+import pygeoprocessing as pygp
 import rasterio as rio
 
-from numba import float64, int32, int64
-from ssurgo import NATSGO, SSURGO, HOME
+from osgeo import gdal
+from ssurgo import NATSGO, SSURGO, HOME, tile_mukeys
 from tqdm import tqdm
 
 
-# @nb.guvectorize([(int32[:], float64[:])], "(m,n),(m,n)")
-def mapit(sarray, mapping):
-    """Mapping values to an array."""
-    for i in range(0, mapping.shape[1] - 1):
-        key, value = mapping[:, i:i+1]
-        sarray[sarray == key] = value
+def mapit(arg):
+    """Mapping values to an raster."""
+    # Reclassify
+    raster_file, mapdict, variable = arg
+    dst = raster_file.replace("mukey", variable)
+    pygp.geoprocessing.reclassify_raster(
+        base_raster_path_band=(raster_file, 1),
+        value_map=mapdict,
+        target_raster_path=dst,
+        target_datatype=gdal.GDT_Int16,
+        target_nodata=-9999,
+        values_required=True  # Temporarily off for testing
+    )
 
 
-def to_raster(rpath, table, variable, dst):
+def to_raster(array, profile, rpath):
+    """Write a raster to its rpath."""
+    with rio.open(rpath, "w", **profile) as file:
+        file.write(array, 1)
+
+
+def map_variable(raster_file, table, variable, dst):
     """Map a table's variable to a raster using the mukey."""
-    # Read in raster
-    r = rio.open(rpath)
-    profile = r.profile
-    array = r.read(1)    
-
-    # Make sur ethe mukey is numerical
+    # Several adjustments needed to the lookup values
     table["mukey"] = table["mukey"].astype(int)
     table = table[["mukey", variable]].drop_duplicates()
-    table = table[~np.isnan(table[variable])]
+    table[variable][np.isnan(table[variable])] = -9999
 
-    # Create a 2D vector as a stand in for a dictionary ("scalars" required)
-    mapping = np.vstack([table["mukey"], table[variable]])
+    # Create a dictionary of lookup values
     mapdict = dict(zip(table["mukey"], table[variable]))
 
-    # Assign values one section at a time
-    arrays = np.array_split(array, 100)
-    narrays = []
-    for tarray in arrays:
-        mapit(tarray, mapping)
-        narrays.append(tarray)
+    # Tile the mukey grid
+    out_folder = os.path.dirname(raster_file)
+    ncpu = 12
+    ntiles = 100
+    rpaths = tile_mukeys(raster_file, out_folder, ntiles, ncpu)
 
-
-
-
-
+    # Map the values to a new raster
+    args = [(rpath, mapdict, variable) for rpath in rpaths]
+    with mp.Pool(10) as pool:
+        for _ in tqdm(pool.imap(mapit, args), total=len(args)):
+            pass
 
 
 if __name__ == "__main__":
-    rpath = "../data/ssurgo/gssurgo/gssurgo_co.tif"
-    dst = "../data/ssurgo/gssurgo/gssurgo_co_test.tif"
-    variable = "brockdepmin"
+    raster_file = ("/home/travis/github/underground_transmission/data/ssurgo/"
+                   "gnatsgo/gnatsgo_conus/gnatsgo_conus_mukey.tif")
+    dst = ("/home/travis/github/underground_transmission/data/rasters/"
+           "gssurgo_conus_test.tif")
+    variable = "wtdepannmin"
     targetdir = os.path.join(HOME, "data/ssurgo")
-    state = "CO"
-    natsgo = NATSGO(targetdir, state)
-    ssurgo = SSURGO(targetdir, state)    
-    table = ssurgo.table
+    natsgo = NATSGO(targetdir)
+    table = natsgo.table
+    map_variable(raster_file, table, variable, dst)
+
