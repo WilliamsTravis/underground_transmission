@@ -3,7 +3,8 @@
 Notes
 -----
 Variable descriptions:
-    https://data.nal.usda.gov/system/files/SSURGO_Metadata_-_Table_Column_Descriptions.pdf#page=81
+    https://data.nal.usda.gov/system/files/SSURGO_Metadata_-_Table_Column_\
+        Descriptions.pdf#page=81
 
 Units:
     https://jneme910.github.io/CART/chapters/Soil_Propert_List_and_Definition
@@ -24,6 +25,7 @@ import warnings
 
 from functools import lru_cache
 from glob import glob
+
 import fiona
 import geopandas as gpd
 import gdalmethods as gm
@@ -84,7 +86,7 @@ class NATSGO_STATE():
         table = self.table.copy()
 
         # Let's keep the horizon information
-        keepers = ["mukey", "lkey", "hzname", "hzdept_r", "hzdepb_r"]
+        keepers = ["mukey", "hzname", "hzdept_r", "hzdepb_r"]
         if variable not in keepers:
             table = table[keepers + [variable]]
         else:
@@ -111,7 +113,6 @@ class NATSGO_STATE():
         """Unpack needed elements within a state file geodatabase."""
         rfpath = "gnatsgo/gNATSGO_CONUS.gdb"
         return os.path.join(self.targetdir, rfpath)
-
 
     @property
     @lru_cache()
@@ -177,8 +178,6 @@ class NATSGO_STATE():
         return table
 
 
-
-
 class NATSGO():
     """Methods for formatting the gNATSGO dataset to return vectors."""
 
@@ -197,28 +196,26 @@ class NATSGO():
     def build(self, variable):
         """Build a useable dataset out of NATSGO."""
         # Get the component table (may need to add tables for certain keys)
-        table = self.table.copy()
+        table = self.table
 
         # Let's keep the horizon information
-        keepers = ["mukey", "lkey", "hzname", "hzdept_r", "hzdepb_r"]
+        keepers = ["mukey", "hzname", "hzdept_r", "hzdepb_r", variable]
         if variable not in keepers:
-            table = table[keepers + [variable]]
+            atable = table[keepers]
         else:
-            table = table[keepers]
+            atable = table[keepers]
 
         # Only keep the entries with values for our target variable
-        table = table[table[variable].notna()]
+        # table = atable[atable[variable].notna()]
 
         # Additionally, this may be horizon independent
-        grouper = table.groupby("lkey", as_index=False)[variable]
-        table["nvar"] = grouper.transform(pd.Series.nunique)
-        if table["nvar"].max() == 1:
-            table = table[["lkey", variable]].drop_duplicates()
+        mcols = gpd.read_file(self.gdb_path, layer="muaggatt", rows=0).columns
+        if variable in mcols:
+            atable = atable[["mukey", variable]].drop_duplicates()
 
         # Merge with our US shapefile
         shape = self.shape
-        df = pd.merge(shape, table, on="lkey")
-        df = df[["geometry", variable]].drop_duplicates()
+        df = pd.merge(shape, atable, on="mukey")
 
         return df
 
@@ -228,6 +225,12 @@ class NATSGO():
         rfpath = "gnatsgo/gNATSGO_CONUS.gdb"
         return os.path.join(self.targetdir, rfpath)
 
+    @property
+    def gdb_path_ssurgo(self):
+        """Unpack needed elements within a state file geodatabase."""
+        pattern = "gssurgo/gSSURGO_CONUS*.gdb"
+        rfpath = glob(os.path.join(self.targetdir, pattern))[0]
+        return rfpath
 
     @property
     @lru_cache()
@@ -241,11 +244,9 @@ class NATSGO():
     @lru_cache()
     def shape(self):
         """Return the original geodatabase just for CONUS."""
-        path = self.gdb_path
-        shape = gpd.read_file(path, layer="SAPOLYGON")
+        path = self.gdb_path_ssurgo
+        shape = gpd.read_file(path, layer="MUPOLYGON")
         shape = shape.to_crs("epsg:5070")
-        shape["state"] = self.state
-        shape = shape.rename({"LKEY": "lkey"}, axis=1)
         return shape
 
     @lru_cache()
@@ -259,28 +260,32 @@ class NATSGO():
     @lru_cache()
     def table(self):
         """Return the components table."""
-        # Let's not do this twice
-        tpath = os.path.join(
-            self.targetdir,
-            "data/ssurgo/ssurgo_mukey_lookup.csv"
-        )
+        # Save this so we don't have to build it more than once
+        fname = self.gdb_path.replace(".gdb", ".csv").replace(".gdb/", ".csv")
+        dst = os.path.join(os.path.dirname(self.gdb_path), fname)
+        if not os.path.exists(dst):
+            # Get sub tables
+            muaggatt = self.subtable("muaggatt")  # All unique mukeys
+            chorizon = self.subtable("chorizon")
+            chaashto = self.subtable("chaashto")
+            component = self.subtable("component")
+    
+            # Merge subtables
+            table = pd.merge(chorizon, component, on="cokey")
+            table = pd.merge(table, muaggatt, on="mukey")
+            table = pd.merge(table, chaashto, on="chkey")
 
-        # Get sub tables
-        table = self.subtable("muaggatt")
-        # chorizon = self.subtable("chorizon")
-        # component = self.subtable("component")
-        # chaashto = self.subtable("chaashto")
+            # Delete the subtables
+            del muaggatt
+            del chorizon
+            del chaashto
+            del component
 
-        # Merge subtables
-        # table = pd.merge(chorizon, component, on="cokey")
-        # table = pd.merge(table, muaggatt, on="mukey")
-        # table = pd.merge(table, chaashto, on="chkey")
-
-        # Now overlap with the coarser NATSGO map units
-        # table = pd.merge(table, muaoverlap, on="mukey", how="left")
-
-        # Stringify the keys
-        # table["mukey"] = table["mukey"].astype(str)
+            # Save
+            table.to_csv(dst, index=False)
+        else:
+            # Read
+            table = pd.read_csv(dst)
 
         return table
 
@@ -330,30 +335,6 @@ class SSURGO():
 
     @property
     @lru_cache()
-    def chaashto(self):
-        """Return the aashtocl text file as a table."""
-        df = gpd.read_file(self.gdb_path, layer="chaashto")
-        del df["geometry"]
-        return df
-
-    @property
-    @lru_cache()
-    def cogeomordesc(self):
-        """Return the cogeomordesc text file as a table."""
-        df = gpd.read_file(self.gdb_path, layer="cogeomordesc")
-        del df["geometry"]
-        return df
-
-    @property
-    @lru_cache()
-    def chorizon(self):
-        """Return the chorizon text file as a table."""
-        df = gpd.read_file(self.gdb_path, layer="chorizon")
-        del df["geometry"]
-        return df
-
-    @property
-    @lru_cache()
     def component(self):
         """Return the components text file as a table."""
         df = gpd.read_file(self.gdb_path, layer="component")
@@ -374,22 +355,6 @@ class SSURGO():
         layers = list(fiona.listlayers(self.gdb_path))
         layers.sort()
         return layers
-
-    @property
-    @lru_cache()
-    def mapunit(self):
-        """Return the mapunit text file as a table."""
-        df = gpd.read_file(self.gdb_path, layer="mapunit")
-        del df["geometry"]
-        return df
-
-    @property
-    @lru_cache()
-    def muaggatt(self):
-        """Return the chorizon text file as a table."""
-        df = gpd.read_file(self.gdb_path, layer="muaggatt")
-        del df["geometry"]
-        return df
 
     @property
     @lru_cache()
@@ -495,6 +460,9 @@ class Soil:
 
 if __name__ == "__main__":
     variable = "brockdepmin"
+    variable = "hydricrating"
+    variable = "aws0150wta"
+    
     targetdir = os.path.join(HOME, "data/ssurgo")
     state = "CO"
     natsgo = NATSGO(targetdir)

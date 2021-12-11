@@ -7,28 +7,27 @@ Created on Tue Dec  7 12:47:19 2021
 """
 import os
 
-import multiprocessing as mp
+import pathos.multiprocessing as mp
 import numpy as np
 import pygeoprocessing as pygp
 import rasterio as rio
 
 from osgeo import gdal
-from ssurgo import NATSGO, SSURGO, HOME, tile_mukeys
+from ssurgo import NATSGO, HOME, tile_mukeys
 from tqdm import tqdm
 
 
 def mapit(arg):
     """Mapping values to an raster."""
     # Reclassify
-    raster_file, mapdict, variable = arg
-    dst = raster_file.replace("mukey", variable)
+    raster_file, mapdict, variable, dst = arg
     pygp.geoprocessing.reclassify_raster(
         base_raster_path_band=(raster_file, 1),
         value_map=mapdict,
         target_raster_path=dst,
         target_datatype=gdal.GDT_Int16,
         target_nodata=-9999,
-        values_required=True  # Temporarily off for testing
+        values_required=True
     )
 
 
@@ -48,15 +47,29 @@ def map_variable(raster_file, table, variable, dst):
     # Create a dictionary of lookup values
     mapdict = dict(zip(table["mukey"], table[variable]))
 
+    # Now, if there are any missing values, add them in as -9999
+    keymin = min(mapdict.keys())
+    keymax = max(mapdict.keys())
+    full_keys = np.arange(keymin, keymax, 1)
+    for key in full_keys:
+        if key not in mapdict.keys():
+            mapdict[key] = -9999
+
     # Tile the mukey grid
     out_folder = os.path.dirname(raster_file)
-    ncpu = 12
+    ncpu = 7
     ntiles = 100
     rpaths = tile_mukeys(raster_file, out_folder, ntiles, ncpu)
 
+    # Create arguments for unprocessed files
+    args = []
+    for rpath in rpaths:
+        dst = rpath.replace("mukey", variable)
+        if not os.path.exists(dst):
+            args.append((rpath, mapdict, variable, dst))
+
     # Map the values to a new raster
-    args = [(rpath, mapdict, variable) for rpath in rpaths]
-    with mp.Pool(10) as pool:
+    with mp.Pool(ncpu) as pool:
         for _ in tqdm(pool.imap(mapit, args), total=len(args)):
             pass
 
@@ -64,11 +77,11 @@ def map_variable(raster_file, table, variable, dst):
 if __name__ == "__main__":
     raster_file = ("/home/travis/github/underground_transmission/data/ssurgo/"
                    "gnatsgo/gnatsgo_conus/gnatsgo_conus_mukey.tif")
-    dst = ("/home/travis/github/underground_transmission/data/rasters/"
-           "gssurgo_conus_test.tif")
     variable = "wtdepannmin"
+    variable = "aws0150wta"
+    dst = ("/home/travis/github/underground_transmission/data/rasters/"
+           f"gssurgo_conus_{variable}.tif")
     targetdir = os.path.join(HOME, "data/ssurgo")
     natsgo = NATSGO(targetdir)
     table = natsgo.table
-    map_variable(raster_file, table, variable, dst)
-
+    # map_variable(raster_file, table, variable, dst)
