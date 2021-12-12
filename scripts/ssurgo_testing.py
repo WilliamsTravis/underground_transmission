@@ -5,30 +5,47 @@ Created on Tue Dec  7 12:47:19 2021
 
 @author: travis
 """
+import json
 import os
 
-import pathos.multiprocessing as mp
+import multiprocessing as mp
 import numpy as np
-import pygeoprocessing as pygp
 import rasterio as rio
 
-from osgeo import gdal
 from ssurgo import NATSGO, HOME, tile_mukeys
-from tqdm import tqdm
+
+
+MUKEY_GRID = ("/home/travis/github/underground_transmission/data/ssurgo/"
+               "gnatsgo/gnatsgo_conus/mukey_grid.tif")
+NAVALUE = 65535
+TARGET_DIR = os.path.join(HOME, "data/ssurgo")
 
 
 def mapit(arg):
     """Mapping values to an raster."""
-    # Reclassify
+    # Read in raster and its profile
     raster_file, mapdict, variable, dst = arg
-    pygp.geoprocessing.reclassify_raster(
-        base_raster_path_band=(raster_file, 1),
-        value_map=mapdict,
-        target_raster_path=dst,
-        target_datatype=gdal.GDT_Int16,
-        target_nodata=-9999,
-        values_required=True
-    )
+    r = rio.open(raster_file)
+    profile = r.profile
+    array = r.read(1)
+
+    # There might be some missing values
+    uarray = np.unique(array)
+    missing = [uv for uv in uarray if uv not in mapdict]
+    for miss in missing:
+        mapdict[miss] = NAVALUE
+
+    # And this is the thing that does it
+    array = np.vectorize(mapdict.get)(array)
+
+    # Clean up array
+    array[array == None] = NAVALUE
+    array = array.astype("uint16")
+
+    # Reset no data and write to file
+    profile["nodata"] = NAVALUE
+    to_raster(array, profile, dst)
+    del array
 
 
 def to_raster(array, profile, rpath):
@@ -37,51 +54,92 @@ def to_raster(array, profile, rpath):
         file.write(array, 1)
 
 
-def map_variable(raster_file, table, variable, dst):
+def build_dict(variable):
+    """Build lookup dictionary for mukeys to variable values."""
+    dst = os.path.join(HOME, f"data/ssurgo/lookups/{variable}.json")
+    if os.path.exists(dst):
+        with open(dst, "r") as file:
+            mapdict = json.load(file)
+        mapdict = {int(k): v for k, v in mapdict.items()}
+    else:
+        natsgo = NATSGO(TARGET_DIR)
+        table = natsgo.table
+        table = table[["mukey", variable]].drop_duplicates()
+        table[variable][np.isnan(table[variable])] = NAVALUE
+        mukeys = [x.item() for x in table["mukey"].values]
+        values = table[variable].values
+
+        # Create a dictionary of lookup values
+        mapdict = dict(zip(mukeys, values))
+        del table
+
+        # Now, if there are any missing values, add them in as max uint16
+        keymin = min(mapdict.keys())
+        keymax = max(mapdict.keys())
+        all_keys = np.arange(keymin, keymax + 1, 1)
+        all_keys = [k.item() for k in all_keys]
+        for key in all_keys:
+            if key not in mapdict.keys():
+                mapdict[key] = NAVALUE
+        del all_keys
+
+        # We need a key for the nan value
+        mapdict[np.iinfo("uint32").max] = NAVALUE
+
+        # And save
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        with open(dst, "w") as file:
+            file.write(json.dumps(mapdict))
+
+    return mapdict
+
+
+def map_variable(mukey_path, mapdict, variable):
     """Map a table's variable to a raster using the mukey."""
-    # Several adjustments needed to the lookup values
-    table["mukey"] = table["mukey"].astype(int)
-    table = table[["mukey", variable]].drop_duplicates()
-    table[variable][np.isnan(table[variable])] = -9999
-
-    # Create a dictionary of lookup values
-    mapdict = dict(zip(table["mukey"], table[variable]))
-
-    # Now, if there are any missing values, add them in as -9999
-    keymin = min(mapdict.keys())
-    keymax = max(mapdict.keys())
-    full_keys = np.arange(keymin, keymax, 1)
-    for key in full_keys:
-        if key not in mapdict.keys():
-            mapdict[key] = -9999
-
-    # Tile the mukey grid
-    out_folder = os.path.dirname(raster_file)
-    ncpu = 7
+     # Tile the mukey grid
+    out_folder = os.path.dirname(mukey_path)
+    ncpu = mp.cpu_count() - 1
     ntiles = 100
-    rpaths = tile_mukeys(raster_file, out_folder, ntiles, ncpu)
+    rpaths = tile_mukeys(mukey_path, out_folder, ntiles, ncpu)
 
     # Create arguments for unprocessed files
     args = []
+    out_paths = []
     for rpath in rpaths:
         dst = rpath.replace("mukey", variable)
+        out_paths.append(dst)
         if not os.path.exists(dst):
             args.append((rpath, mapdict, variable, dst))
 
-    # Map the values to a new raster
+    # Map the values to new rasters
     with mp.Pool(ncpu) as pool:
-        for _ in tqdm(pool.imap(mapit, args), total=len(args)):
-            pass
+        pool.map(mapit, args)
+    pool.join()
+
+    return out_paths
+
+
+def main(variable, dst):
+    # Get the path to the mukey grid and build the lookup dictionary
+    print(f"Building raster for {variable}...")
+    mukey_path = MUKEY_GRID
+    mapdict = build_dict(variable)
+
+    # Map values to keys in tiles
+    print("Mapping values to tiled mukey grid...")
+    files = map_variable(mukey_path, mapdict, variable)
+
+    # Merge tiles
+    print(f"Merging tiles and saving final layer to {dst}...")
+    options = ["tiled=yes", "compress=lzw", "blockxsize=256", "blockysize=256"]
+    cos = ["-co " + co for co in options]
+    cmd = " ".join(["gdal_merge.py", "-n", str(NAVALUE), "-a_nodata",
+                    str(NAVALUE), *cos, *files, "-o", dst])
+    os.system(cmd)
 
 
 if __name__ == "__main__":
-    raster_file = ("/home/travis/github/underground_transmission/data/ssurgo/"
-                   "gnatsgo/gnatsgo_conus/gnatsgo_conus_mukey.tif")
-    variable = "wtdepannmin"
-    variable = "aws0150wta"
-    dst = ("/home/travis/github/underground_transmission/data/rasters/"
-           f"gssurgo_conus_{variable}.tif")
-    targetdir = os.path.join(HOME, "data/ssurgo")
-    natsgo = NATSGO(targetdir)
-    table = natsgo.table
-    # map_variable(raster_file, table, variable, dst)
+    for variable in ["wtdepannmin", "brockdepmin"]:
+        dst = ("/home/travis/github/underground_transmission/data/rasters/"
+               f"gssurgo_conus_{variable}.tif")
+        main(variable, dst)

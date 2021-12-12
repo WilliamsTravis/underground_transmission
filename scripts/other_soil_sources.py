@@ -4,13 +4,10 @@ Created on Sat Dec 11 12:57:03 2021
 
 @author: twillia2
 """
-import requests
-
-
 GLOBAL_DTB = ("http://globalchange.bnu.edu.cn/download/data/DTB/"
-              "BDTICM_M_10km_ll.zip")
+              "BDTICM_M_250m_ll.zip")
 GLOBAL_DTB_C = ("http://globalchange.bnu.edu.cn/download/data/DTB/"
-                "BDRICM_M_10km_ll.zip")
+                "BDRICM_M_250m_ll.zip")
 GLOBAL_DTB_CITE = ("Shangguan, W., Hengl, T., de Jesus, J.M., Yuan, H. and "
                    "Dai, Y., 2017. Mapping the global depth to bedrock for "
                    "land surface modeling. Journal of Advances in Modeling "
@@ -21,3 +18,12 @@ GLOBAL_ST_CITE = ("Pelletier, J.D., P.D. Broxton, P. Hazenberg, X. Zeng, P.A. "
                   "2016. Global 1-km Gridded Thickness of Soil, Regolith, and "
                   "Sedimentary Deposit Layers. ORNL DAAC, Oak Ridge, "
                   "Tennessee, USA. https://doi.org/10.3334/ORNLDAAC/1304")
+
+
+if __name__ == "__main__":
+    print(GLOBAL_DTB)
+    print(GLOBAL_DTB_C)
+    print(GLOBAL_DTB_CITE)
+    print("\n")
+    print(GLOBAL_ST)
+    print(GLOBAL_ST_CITE)
